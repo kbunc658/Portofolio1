@@ -443,7 +443,6 @@ textarea.fi-a{min-height:90px;resize:vertical}
     <input class="fi" id="li-pass" type="password" placeholder="Password">
     <button class="btn-login" onclick="doLogin()">Masuk Dashboard</button>
     <button class="btn-cancel" onclick="closeLoginModal()">Batal</button>
-    <p style="margin-top:16px;font-size:.75rem;color:#aaa;text-align:center">Default: <strong style="color:#666">admin</strong> / <strong style="color:#666">tia2024</strong></p>
   </div>
 </div>
 
@@ -668,19 +667,7 @@ async function sb(table, method='GET', body=null, query=''){
 // ═══════════════════════════════════════════════════════════
 // STATE
 // ═══════════════════════════════════════════════════════════
-// Default settings — login works even if Supabase belum di-setup
-let settings = {
-  admin_username: 'admin',
-  admin_password: 'tia2024',
-  navbar_logo: 'E-Portofolio Tia Kamalini',
-  footer_email: 'madetia92@gmail.com',
-  footer_phone: '+62 878-2566-2597',
-  footer_text: '© 2026 | E-Portofolio Tia Kamalini | PPG',
-  hero_title: 'E-Portofolio Tia Kamalini',
-  hero_subtitle: 'Pendidikan Profesi Guru (PPG) | Universitas Pendidikan Ganesha',
-  hero_image_url: '',
-  hero_bg_url: ''
-};
+let settings = {};
 let pages = {};
 let mediaItems = {};
 let isAdmin = false;
@@ -692,14 +679,9 @@ let _imSlug = '', _imId = null;
 // ═══════════════════════════════════════════════════════════
 async function init(){
   try {
-    // Load settings dari Supabase — merge ke atas default agar login tetap jalan walau kolom null
+    // Load settings
     const s = await sb('site_settings','GET',null,'?id=eq.main&select=*');
-    if(s&&s[0]){
-      // Hanya overwrite kalau nilainya tidak null/kosong
-      Object.entries(s[0]).forEach(([k,v])=>{
-        if(v !== null && v !== '') settings[k] = v;
-      });
-    }
+    if(s&&s[0]) settings = s[0];
     applySettings();
 
     // Load pages
@@ -960,16 +942,12 @@ function openLoginModal(){ document.getElementById('login-modal').classList.add(
 function closeLoginModal(){ document.getElementById('login-modal').classList.remove('open'); document.getElementById('login-err').style.display='none'; }
 
 async function doLogin(){
-  const u = document.getElementById('li-user').value.trim();
-  const p = document.getElementById('li-pass').value.trim();
-  const validUser = settings.admin_username || 'admin';
-  const validPass = settings.admin_password || 'tia2024';
-  if(u === validUser && p === validPass){
-    isAdmin = true;
-    closeLoginModal();
-    openAdmin();
+  const u=document.getElementById('li-user').value.trim();
+  const p=document.getElementById('li-pass').value;
+  if(u===settings.admin_username && p===settings.admin_password){
+    isAdmin=true; closeLoginModal(); openAdmin();
   } else {
-    document.getElementById('login-err').style.display = 'block';
+    document.getElementById('login-err').style.display='block';
   }
 }
 document.getElementById('li-pass').addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
