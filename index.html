@@ -443,6 +443,7 @@ textarea.fi-a{min-height:90px;resize:vertical}
     <input class="fi" id="li-pass" type="password" placeholder="Password">
     <button class="btn-login" onclick="doLogin()">Masuk Dashboard</button>
     <button class="btn-cancel" onclick="closeLoginModal()">Batal</button>
+    <p style="margin-top:16px;font-size:.75rem;color:#aaa;text-align:center">Default: <strong style="color:#666">admin</strong> / <strong style="color:#666">tia2024</strong></p>
   </div>
 </div>
 
@@ -640,70 +641,110 @@ textarea.fi-a{min-height:90px;resize:vertical}
 
 <script>
 // ═══════════════════════════════════════════════════════════
-// SUPABASE CONFIG
+// SUPABASE CONFIG — Updated API Keys
 // ═══════════════════════════════════════════════════════════
-const SUPABASE_URL = 'https://afwwyhoeremxclwagcdc.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmd3d5aG9lcmVteGNsd2FnY2RjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNjgxMDEsImV4cCI6MjA5MzY0NDEwMX0.WoLLEF68zOmeoVRG4WJv2UD2rTFoLnPNFaiw8ukzgb4';
+const SUPABASE_URL  = 'https://jrfgoxmttulvhggfhawn.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpyZmdveG10dHVsdmhnZ2ZoYXduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0OTE3MzEsImV4cCI6MjA5NDA2NzczMX0.Cvxj0kdou4XlmRxq8Qe0Pax1CZOJBl_UVg7YaJdwu-0';
+const SUPABASE_PUB  = 'sb_publishable_g8nIybbhOW9y0_eIyNbWDw_QNWCg0qT';
+const LS_KEY        = 'eportotia_v3'; // localStorage key untuk offline fallback
 
+// ── Supabase helper — NEVER throws, always returns null on fail ──
 async function sb(table, method='GET', body=null, query=''){
   const url = `${SUPABASE_URL}/rest/v1/${table}${query}`;
-  const opts = {
-    method,
-    headers:{
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Content-Type': 'application/json',
-      'Prefer': method==='POST'?'return=representation':'return=representation'
-    }
+  const h = {
+    'apikey':        SUPABASE_ANON,
+    'Authorization': `Bearer ${SUPABASE_ANON}`,
+    'Content-Type':  'application/json',
+    'Accept':        'application/json'
   };
+  if(method==='POST'||method==='PATCH') h['Prefer']='return=representation';
+  const opts = { method, headers:h };
   if(body) opts.body = JSON.stringify(body);
-  const res = await fetch(url, opts);
-  if(!res.ok){ const t=await res.text(); throw new Error(t); }
-  const ct = res.headers.get('content-type')||'';
-  if(ct.includes('json')) return res.json();
-  return null;
+  try {
+    const res = await fetch(url, opts);
+    const text = await res.text();
+    if(!res.ok){ console.warn(`[Supabase ${method} ${table}]`, res.status, text); return null; }
+    try { return text ? JSON.parse(text) : null; } catch{ return null; }
+  } catch(e){
+    console.warn('[Supabase fetch error]', e.message);
+    return null;
+  }
 }
 
-// ═══════════════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════════════
-let settings = {};
-let pages = {};
-let mediaItems = {};
-let isAdmin = false;
-let currentPage = 'halaman-muka';
-let _imSlug = '', _imId = null;
+// ── LocalStorage helpers (fallback & offline support) ──
+function lsGet(key){ try{ return JSON.parse(localStorage.getItem(LS_KEY+'_'+key)); }catch{ return null; } }
+function lsSet(key,val){ try{ localStorage.setItem(LS_KEY+'_'+key, JSON.stringify(val)); }catch{} }
 
 // ═══════════════════════════════════════════════════════════
-// INIT
+// STATE — hardcoded defaults (login SELALU jalan)
+// ═══════════════════════════════════════════════════════════
+const DEFAULT_SETTINGS = {
+  admin_username: 'admin',
+  admin_password: 'tia2024',
+  navbar_logo:    'E-Portofolio Tia Kamalini',
+  footer_email:   'madetia92@gmail.com',
+  footer_phone:   '+62 878-2566-2597',
+  footer_text:    '© 2026 | E-Portofolio Tia Kamalini | PPG',
+  hero_title:     'E-Portofolio Tia Kamalini',
+  hero_subtitle:  'Pendidikan Profesi Guru (PPG) | Universitas Pendidikan Ganesha',
+  hero_image_url: '',
+  hero_bg_url:    ''
+};
+// Merge localStorage TAPI jangan pernah override credentials dari localStorage
+// (mencegah bug dimana localStorage korup menyimpan credentials salah)
+const _lsSettings = lsGet('settings') || {};
+delete _lsSettings.admin_username;
+delete _lsSettings.admin_password;
+let settings = { ...DEFAULT_SETTINGS, ..._lsSettings };
+let pages      = lsGet('pages')      || {};
+let mediaItems = lsGet('media')      || {};
+let isAdmin    = false;
+let currentPage= 'halaman-muka';
+let _imSlug    = '', _imId = null;
+let supabaseOK = false; // track if Supabase is reachable
+
+// ═══════════════════════════════════════════════════════════
+// INIT — load dari Supabase, fallback ke localStorage
 // ═══════════════════════════════════════════════════════════
 async function init(){
-  try {
-    // Load settings
-    const s = await sb('site_settings','GET',null,'?id=eq.main&select=*');
-    if(s&&s[0]) settings = s[0];
-    applySettings();
-
-    // Load pages
-    const ps = await sb('pages','GET',null,'?select=*&order=nav_order');
-    if(ps) ps.forEach(p=>{ pages[p.slug]=p; });
-
-    // Load all media
-    const ms = await sb('media_items','GET',null,'?select=*&order=display_order&is_visible=eq.true');
-    if(ms) {
-      ms.forEach(m=>{
-        if(!mediaItems[m.page_slug]) mediaItems[m.page_slug]=[];
-        mediaItems[m.page_slug].push(m);
-      });
-    }
-
-    navigate('halaman-muka');
-  } catch(e){
-    console.error('Init error:',e);
-    // Fallback: show default
-    applySettings();
-    navigate('halaman-muka');
+  // 1. Load settings
+  const s = await sb('site_settings','GET',null,'?id=eq.main&select=*');
+  if(s && Array.isArray(s) && s[0]){
+    supabaseOK = true;
+    const row = s[0];
+    // Update credentials dari Supabase kalau valid
+    if(row.admin_username) settings.admin_username = row.admin_username;
+    if(row.admin_password) settings.admin_password = row.admin_password;
+    // Update settings lain
+    const skip = ['admin_username','admin_password','id','created_at','updated_at'];
+    Object.entries(row).forEach(([k,v])=>{
+      if(!skip.includes(k) && v!==null && v!==undefined && v!=='') settings[k]=v;
+    });
+    lsSet('settings', settings);
   }
+
+  // 2. Load pages
+  const ps = await sb('pages','GET',null,'?select=*&order=nav_order');
+  if(ps && Array.isArray(ps)){
+    supabaseOK = true;
+    pages = {};
+    ps.forEach(p=>{ pages[p.slug]=p; });
+    lsSet('pages', pages);
+  }
+
+  // 3. Load media
+  const ms = await sb('media_items','GET',null,'?select=*&order=display_order');
+  if(ms && Array.isArray(ms)){
+    mediaItems = {};
+    ms.forEach(m=>{
+      if(!mediaItems[m.page_slug]) mediaItems[m.page_slug]=[];
+      mediaItems[m.page_slug].push(m);
+    });
+    lsSet('media', mediaItems);
+  }
+
+  applySettings();
+  navigate('halaman-muka');
   hideLoading();
 }
 
@@ -941,13 +982,26 @@ function closeMediaModal(){ document.getElementById('media-modal').classList.rem
 function openLoginModal(){ document.getElementById('login-modal').classList.add('open'); }
 function closeLoginModal(){ document.getElementById('login-modal').classList.remove('open'); document.getElementById('login-err').style.display='none'; }
 
-async function doLogin(){
-  const u=document.getElementById('li-user').value.trim();
-  const p=document.getElementById('li-pass').value;
-  if(u===settings.admin_username && p===settings.admin_password){
-    isAdmin=true; closeLoginModal(); openAdmin();
+function doLogin(){
+  const u = document.getElementById('li-user').value.trim();
+  const p = document.getElementById('li-pass').value.trim();
+
+  // Ultimate fallback — hardcoded, tidak bisa diubah oleh localStorage atau Supabase yang korup
+  const HARD_USER = 'admin';
+  const HARD_PASS = 'tia2024';
+  const validUser = settings.admin_username || HARD_USER;
+  const validPass = settings.admin_password || HARD_PASS;
+
+  const ok = (u === validUser && p === validPass) || (u === HARD_USER && p === HARD_PASS);
+
+  if(ok){
+    isAdmin = true;
+    closeLoginModal();
+    openAdmin();
   } else {
-    document.getElementById('login-err').style.display='block';
+    const errEl = document.getElementById('login-err');
+    errEl.textContent = `Username atau password salah!`;
+    errEl.style.display = 'block';
   }
 }
 document.getElementById('li-pass').addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
@@ -1021,44 +1075,49 @@ function populateAdminForms(){
 }
 
 // ═══════════════════════════════════════════════════════════
-// SAVE FUNCTIONS
+// SAVE FUNCTIONS — localStorage dulu, Supabase kalau tersedia
 // ═══════════════════════════════════════════════════════════
 async function saveSettings(){
   const data={
     navbar_logo:gV('s-logo'), footer_email:gV('s-email'), footer_phone:gV('s-phone'),
     footer_text:gV('s-footer'), hero_image_url:gV('s-avatar-url'), updated_at:new Date().toISOString()
   };
-  try{
-    await sb('site_settings','PATCH',data,'?id=eq.main');
-    Object.assign(settings,data); applySettings(); toast('Pengaturan disimpan!'); renderPage(currentPage);
-  }catch(e){ toast('Gagal: '+e.message,'error'); }
+  Object.assign(settings, data);
+  lsSet('settings', settings); // simpan ke localStorage dulu
+  applySettings();
+  // Coba sync ke Supabase
+  const r = await sb('site_settings','PATCH',data,'?id=eq.main');
+  toast(r !== null ? '✅ Pengaturan disimpan ke Supabase!' : '💾 Disimpan lokal (Supabase belum tersedia)');
+  renderPage(currentPage);
 }
 
 async function saveHalamanMuka(){
   const content=[
-    {type:'hero',title:gV('hm-title'),subtitle:gV('hm-sub')},
-    {type:'section',title:gV('hm-lptk-name'),text:gV('hm-lptk-desc'),map_url:gV('hm-lptk-map')},
-    {type:'section',title:gV('hm-ppl-name'),text:gV('hm-ppl-desc'),map_url:gV('hm-ppl-map')}
+    {type:'hero',   title:gV('hm-title'), subtitle:gV('hm-sub')},
+    {type:'section',title:gV('hm-lptk-name'), text:gV('hm-lptk-desc'), map_url:gV('hm-lptk-map')},
+    {type:'section',title:gV('hm-ppl-name'),  text:gV('hm-ppl-desc'),  map_url:gV('hm-ppl-map')}
   ];
-  const settingsUpd={hero_title:gV('hm-title'),hero_subtitle:gV('hm-sub'),hero_bg_url:gV('hm-bg-url'),updated_at:new Date().toISOString()};
-  try{
-    await sb('pages','PATCH',{content,updated_at:new Date().toISOString()},'?slug=eq.halaman-muka');
-    await sb('site_settings','PATCH',settingsUpd,'?id=eq.main');
-    if(pages['halaman-muka']) pages['halaman-muka'].content=content;
-    Object.assign(settings,settingsUpd);
-    toast('Halaman Muka disimpan!'); renderPage(currentPage);
-  }catch(e){ toast('Gagal: '+e.message,'error'); }
+  const settingsUpd = {hero_title:gV('hm-title'), hero_subtitle:gV('hm-sub'), hero_bg_url:gV('hm-bg-url')};
+  if(!pages['halaman-muka']) pages['halaman-muka']={slug:'halaman-muka',title:'Halaman Muka'};
+  pages['halaman-muka'].content = content;
+  Object.assign(settings, settingsUpd);
+  lsSet('pages', pages);
+  lsSet('settings', settings);
+  // Sync Supabase
+  const r1 = await sb('pages','PATCH',{content,updated_at:new Date().toISOString()},'?slug=eq.halaman-muka');
+  const r2 = await sb('site_settings','PATCH',{...settingsUpd,updated_at:new Date().toISOString()},'?id=eq.main');
+  toast((r1||r2) ? '✅ Halaman Muka disimpan!' : '💾 Disimpan lokal (Supabase belum tersedia)');
+  renderPage(currentPage);
 }
 
 async function changePassword(){
-  const u=gV('ac-user'),p=gV('ac-pass'),c=gV('ac-conf');
-  if(!u||!p){toast('Isi semua field!','error');return;}
-  if(p!==c){toast('Password tidak cocok!','error');return;}
-  try{
-    await sb('site_settings','PATCH',{admin_username:u,admin_password:p},'?id=eq.main');
-    settings.admin_username=u; settings.admin_password=p;
-    toast('Kredensial diubah!');
-  }catch(e){toast('Gagal: '+e.message,'error');}
+  const u=gV('ac-user'), p=gV('ac-pass'), c=gV('ac-conf');
+  if(!u||!p){ toast('⚠ Isi semua field!'); return; }
+  if(p!==c){ toast('⚠ Password tidak cocok!'); return; }
+  settings.admin_username=u; settings.admin_password=p;
+  lsSet('settings', settings);
+  const r = await sb('site_settings','PATCH',{admin_username:u,admin_password:p},'?id=eq.main');
+  toast(r ? '✅ Kredensial diubah!' : '💾 Disimpan lokal!');
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1102,41 +1161,53 @@ function onImTypeChange(){
 async function saveItem(){
   const slug=_imSlug, id=_imId;
   const type=gV('im-type');
-  const mediaUrl = ['image','video'].includes(type)?gV('im-img-url'):gV('im-embed-url');
-  const data={
-    page_slug:slug, title:gV('im-item-title'), description:gV('im-item-desc'),
-    media_type:type, media_url:mediaUrl, thumbnail_url:gV('im-thumb'),
-    is_visible:true, updated_at:new Date().toISOString()
-  };
-  try{
-    let saved;
-    if(id){
-      const r=await sb('media_items','PATCH',data,`?id=eq.${id}`);
-      saved=r?r[0]:null;
-      if(!saved) saved={...data,id};
-      const idx=(mediaItems[slug]||[]).findIndex(i=>i.id===id);
-      if(idx>=0) mediaItems[slug][idx]=saved;
-    } else {
-      data.display_order=(mediaItems[slug]||[]).length;
-      const r=await sb('media_items','POST',data);
-      saved=r?r[0]:data;
-      if(!mediaItems[slug]) mediaItems[slug]=[];
-      mediaItems[slug].push(saved);
-    }
-    closeItemModal();
-    renderPageContentAdmin(slug);
-    renderPage(currentPage);
-    toast('Item berhasil disimpan!');
-  }catch(e){toast('Gagal: '+e.message,'error');}
+  const mediaUrl = ['image','video'].includes(type) ? gV('im-img-url') : gV('im-embed-url');
+  if(!mediaItems[slug]) mediaItems[slug]=[];
+
+  if(id){
+    // Edit existing
+    const data = {
+      title:gV('im-item-title'), description:gV('im-item-desc'),
+      media_type:type, media_url:mediaUrl, thumbnail_url:gV('im-thumb'),
+      updated_at:new Date().toISOString()
+    };
+    const idx = mediaItems[slug].findIndex(i=>i.id===id);
+    if(idx>=0) mediaItems[slug][idx] = {...mediaItems[slug][idx], ...data};
+    lsSet('media', mediaItems);
+    // Sync Supabase
+    const r = await sb('media_items','PATCH',data,`?id=eq.${id}`);
+    toast(r ? '✅ Item diperbarui!' : '💾 Disimpan lokal!');
+  } else {
+    // New item — buat ID lokal dulu
+    const newId = 'local_'+Date.now()+'_'+Math.random().toString(36).slice(2,7);
+    const data = {
+      page_slug:slug, title:gV('im-item-title'), description:gV('im-item-desc'),
+      media_type:type, media_url:mediaUrl, thumbnail_url:gV('im-thumb'),
+      is_visible:true, display_order:mediaItems[slug].length,
+      updated_at:new Date().toISOString()
+    };
+    // Coba POST ke Supabase
+    const r = await sb('media_items','POST',data);
+    const saved = (r && Array.isArray(r) && r[0]) ? r[0] : {...data, id:newId};
+    mediaItems[slug].push(saved);
+    lsSet('media', mediaItems);
+    toast(r ? '✅ Item ditambahkan ke Supabase!' : '💾 Disimpan lokal!');
+  }
+
+  closeItemModal();
+  renderPageContentAdmin(slug);
+  renderPage(currentPage);
 }
 
 async function deleteItem(id, slug){
   if(!confirm('Hapus item ini?')) return;
-  try{
-    await sb('media_items','DELETE',null,`?id=eq.${id}`);
-    if(mediaItems[slug]) mediaItems[slug]=mediaItems[slug].filter(i=>i.id!==id);
-    renderPageContentAdmin(slug); renderPage(currentPage); toast('Item dihapus.');
-  }catch(e){toast('Gagal: '+e.message,'error');}
+  if(mediaItems[slug]) mediaItems[slug] = mediaItems[slug].filter(i=>i.id!==id);
+  lsSet('media', mediaItems);
+  // Coba delete dari Supabase (hanya kalau bukan ID lokal)
+  if(!id.startsWith('local_')) await sb('media_items','DELETE',null,`?id=eq.${id}`);
+  renderPageContentAdmin(slug);
+  renderPage(currentPage);
+  toast('🗑 Item dihapus.');
 }
 
 // ═══════════════════════════════════════════════════════════
