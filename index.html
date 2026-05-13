@@ -3,57 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>E-Portofolio IT Gacor Bwangggg</title>
+<title>E-Portofolio Tia Kamalini</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link id="google-fonts-link" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Lato:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@300;400;600;700&family=Merriweather:wght@300;400;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-/* ══════════════════════════════════════════════
-   CSS VARIABLES & RESET
-══════════════════════════════════════════════ */
-:root {
-  --navy:      #0B2545;
-  --navy-mid:  #134074;
-  --blue:      #1565C0;
-  --blue-lt:   #1E88E5;
-  --sky:       #29B6F6;
-  --teal:      #00897B;
-  --gold:      #F9A825;
-  --coral:     #EF5350;
-  --white:     #FFFFFF;
-  --off:       #F0F6FF;
-  --pale:      #E3F2FD;
-  --border:    #B3D1F5;
-  --txt:       #0B2545;
-  --txt-m:     #2E4E7A;
-  --txt-s:     #6B83A6;
-  --shadow:    0 6px 28px rgba(11,37,69,.12);
-  --shadow-lg: 0 20px 60px rgba(11,37,69,.18);
-  --r:         14px;
-  --r-sm:      8px;
-  --nav-h:     62px;
+:root{
+  --navy:#0B2545;--navy-mid:#134074;--blue:#1565C0;--blue-lt:#1E88E5;
+  --sky:#29B6F6;--teal:#00897B;--gold:#F9A825;--coral:#EF5350;
+  --pale:#E3F2FD;--border:#B3D1F5;--txt-s:#6B83A6;
+  --shadow:0 6px 28px rgba(11,37,69,.12);--shadow-lg:0 20px 60px rgba(11,37,69,.18);
+  --r:14px;--nav-h:62px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--off);color:var(--txt);min-height:100vh;overflow-x:hidden}
+html{scroll-behavior:smooth}
+body{font-family:var(--body-font,"Plus Jakarta Sans",sans-serif);background:var(--site-bg,#F0F6FF);color:var(--body-color,#0B2545);font-size:var(--body-size,16px);min-height:100vh;overflow-x:hidden;transition:background .3s}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#ddeeff}::-webkit-scrollbar-thumb{background:var(--blue);border-radius:3px}
-a{text-decoration:none;color:inherit}
-img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}img{display:block}
 
-/* ══════════════════════════════════════════════
-   LOADING SCREEN
-══════════════════════════════════════════════ */
+/* LOADING */
 #loading{position:fixed;inset:0;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s}
 #loading.fade{opacity:0;pointer-events:none}
 .loader-ring{width:56px;height:56px;border:4px solid rgba(255,255,255,.15);border-top-color:var(--sky);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:20px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loader-text{color:rgba(255,255,255,.7);font-size:.85rem;letter-spacing:2px;text-transform:uppercase}
 
-/* ══════════════════════════════════════════════
-   NAVBAR
-══════════════════════════════════════════════ */
+/* NAVBAR */
 #navbar{position:fixed;top:0;left:0;right:0;z-index:800;height:var(--nav-h);background:rgba(11,37,69,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;padding:0 32px;transition:all .3s}
 #navbar.scrolled{background:rgba(11,37,69,1);box-shadow:0 2px 20px rgba(0,0,0,.3)}
-.nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff;white-space:nowrap;letter-spacing:-.3px}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff;white-space:nowrap;cursor:pointer}
 .nav-logo span{color:var(--sky)}
 .nav-menu{display:flex;align-items:center;gap:2px;flex:1;justify-content:center}
 .nav-item{position:relative}
@@ -61,68 +38,41 @@ img{max-width:100%;display:block}
 .nav-link:hover,.nav-link.active{background:rgba(255,255,255,.12);color:#fff}
 .nav-link .arrow{font-size:.65rem;transition:transform .2s}
 .nav-item.dd-open .arrow{transform:rotate(180deg)}
-/* Dropdown: top flush (no gap), invisible padding-top = bridge so mouse doesn't leave */
-.nav-dropdown{
-  position:absolute;
-  top:100%;
-  left:0;
-  padding-top:6px;        /* invisible bridge — keeps hover alive across the gap */
-  min-width:240px;
-  display:none;
-  z-index:900;
-}
+.nav-dropdown{position:absolute;top:100%;left:0;padding-top:6px;min-width:240px;display:none;z-index:900}
 .nav-item.dd-open>.nav-dropdown{display:block}
-/* The visible box lives inside */
-.nav-dropdown-box{
-  background:rgba(8,26,58,.97);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:10px;
-  padding:6px;
-  backdrop-filter:blur(20px);
-  box-shadow:0 14px 44px rgba(0,0,0,.45);
-  animation:dropIn .16s ease;
-}
+.nav-dropdown-box{background:rgba(8,26,58,.97);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:6px;backdrop-filter:blur(20px);box-shadow:0 14px 44px rgba(0,0,0,.45);animation:dropIn .16s ease}
 @keyframes dropIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 .nav-dd-link{display:block;padding:10px 14px;color:rgba(255,255,255,.8);font-size:.83rem;border-radius:7px;transition:all .18s;cursor:pointer;white-space:nowrap}
 .nav-dd-link:hover{background:rgba(255,255,255,.12);color:#fff;padding-left:18px}
 .nav-right{display:flex;align-items:center;gap:8px}
 .btn-admin{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:7px 15px;border-radius:7px;font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
 .btn-admin:hover{background:var(--coral);border-color:var(--coral)}
-/* Mobile hamburger */
 .hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:6px}
-.hamburger span{width:22px;height:2px;background:#fff;border-radius:2px;transition:all .3s}
-.mobile-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(11,37,69,.98);padding:16px;max-height:calc(100vh - var(--nav-h));overflow-y:auto;z-index:790;border-bottom:1px solid rgba(255,255,255,.1)}
+.hamburger span{width:22px;height:2px;background:#fff;border-radius:2px}
+.mobile-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(11,37,69,.98);padding:16px;max-height:calc(100vh - var(--nav-h));overflow-y:auto;z-index:790}
 .mobile-nav.open{display:block}
 .mobile-nav-link{display:block;color:rgba(255,255,255,.85);padding:11px 16px;border-radius:8px;font-size:.88rem;font-weight:500;cursor:pointer;transition:background .2s}
-.mobile-nav-link:hover,.mobile-nav-link.active{background:rgba(255,255,255,.1);color:#fff}
+.mobile-nav-link:hover{background:rgba(255,255,255,.1);color:#fff}
 .mobile-nav-sub{padding-left:16px}
 .mobile-nav-sub .mobile-nav-link{font-size:.82rem;color:rgba(255,255,255,.65)}
 
-/* ══════════════════════════════════════════════
-   PAGE WRAPPER
-══════════════════════════════════════════════ */
+/* APP */
 #app{padding-top:var(--nav-h)}
-.page{display:none;min-height:calc(100vh - var(--nav-h))}
-.page.active{display:block}
 
-/* ══════════════════════════════════════════════
-   HALAMAN MUKA — HERO
-══════════════════════════════════════════════ */
-.hero-section{position:relative;min-height:520px;display:flex;align-items:center;overflow:hidden;background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 60%,#1a4d8a 100%)}
-.hero-bg-img{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.18;transition:all .5s}
-.hero-shapes{position:absolute;inset:0;overflow:hidden}
-.hero-shapes::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(41,182,246,.07);top:-80px;right:-80px}
-.hero-shapes::after{content:'';position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(249,168,37,.06);bottom:60px;left:8%}
-.hero-inner{position:relative;z-index:2;max-width:900px;margin:0 auto;padding:80px 48px;text-align:center;color:#fff}
-.hero-badge{display:inline-block;background:rgba(41,182,246,.2);border:1px solid rgba(41,182,246,.4);color:var(--sky);font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:20px}
-.hero-inner h1{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:900;line-height:1.12;margin-bottom:14px}
+/* HERO — no blue overlay */
+.hero-section{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-inner{position:relative;z-index:2;max-width:900px;margin:0 auto;padding:80px 48px;text-align:center;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.55)}
+.hero-badge{display:inline-block;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.4);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:20px}
+.hero-inner h1{font-size:3.2rem;font-weight:900;line-height:1.12;margin-bottom:14px}
 .hero-inner h1 em{color:var(--sky);font-style:normal}
-.hero-inner p{font-size:1.05rem;opacity:.8;max-width:560px;margin:0 auto 28px;line-height:1.7}
-.hero-avatar{width:120px;height:120px;border-radius:50%;border:3px solid rgba(255,255,255,.3);object-fit:cover;margin:0 auto 24px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:3rem}
+.hero-inner p{font-size:1.05rem;opacity:.92;max-width:560px;margin:0 auto 28px;line-height:1.7}
+.hero-avatar-wrap{margin:0 auto 24px;width:120px;height:120px}
+.hero-avatar{width:120px;height:120px;border-radius:50%;border:3px solid rgba(255,255,255,.5);object-fit:cover;box-shadow:0 4px 20px rgba(0,0,0,.3);display:block}
+.hero-avatar-ph{width:120px;height:120px;border-radius:50%;border:3px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:3rem}
 
-/* ══════════════════════════════════════════════
-   HALAMAN MUKA — LOCATION CARDS
-══════════════════════════════════════════════ */
+/* LOCATION */
 .location-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:1000px;margin:0 auto;padding:48px 32px}
 .location-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
 .location-map{height:220px;border:none;width:100%}
@@ -130,9 +80,7 @@ img{max-width:100%;display:block}
 .location-body h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy);margin-bottom:8px}
 .location-body p{color:var(--txt-s);font-size:.87rem;line-height:1.7}
 
-/* ══════════════════════════════════════════════
-   MENU CARDS (Halaman Muka shortcut)
-══════════════════════════════════════════════ */
+/* SHORTCUT */
 .menu-cards-section{padding:48px 32px;max-width:1000px;margin:0 auto}
 .menu-cards-section h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--navy);margin-bottom:6px}
 .section-divider{width:50px;height:3px;background:linear-gradient(90deg,var(--blue),var(--sky));border-radius:2px;margin:10px 0 32px}
@@ -143,130 +91,89 @@ img{max-width:100%;display:block}
 .shortcut-card h4{font-family:'Playfair Display',serif;font-size:1rem;color:var(--navy);margin-bottom:7px}
 .shortcut-card p{font-size:.78rem;color:var(--txt-s);line-height:1.5}
 
-/* ══════════════════════════════════════════════
-   CONTENT PAGE GENERAL
-══════════════════════════════════════════════ */
+/* CONTENT PAGE */
 .content-page-wrap{max-width:1000px;margin:0 auto;padding:52px 32px}
 .page-header{margin-bottom:40px}
-.page-tag{display:inline-block;background:var(--pale);color:var(--blue);font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 13px;border-radius:20px;margin-bottom:12px}
-.page-header h1{font-family:'Playfair Display',serif;font-size:2.3rem;color:var(--navy);line-height:1.2}
-.page-header p{color:var(--txt-s);margin-top:10px;font-size:.95rem;max-width:580px;line-height:1.7}
+.tag{display:inline-block;background:var(--pale);color:var(--blue);font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:10px}
+.page-header h1{font-size:2.3rem;color:var(--navy);line-height:1.2;font-family:'Playfair Display',serif}
+.divider{width:48px;height:3px;background:linear-gradient(90deg,var(--blue),var(--sky));border-radius:2px;margin:10px 0 28px}
 
-/* ══════════════════════════════════════════════
-   CONTENT BLOCKS (rendered from JSON)
-══════════════════════════════════════════════ */
-.block{margin-bottom:32px}
-
-/* Text block */
-.block-text h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:12px}
-.block-text p,.block-text-body{color:var(--txt-m);line-height:1.8;font-size:.95rem;white-space:pre-wrap}
-
-/* Image block */
-.block-image img{border-radius:var(--r);width:100%;max-height:480px;object-fit:cover;box-shadow:var(--shadow)}
-.block-image .caption{font-size:.78rem;color:var(--txt-s);margin-top:8px;text-align:center}
-
-/* Video */
-.block-video video{width:100%;border-radius:var(--r);box-shadow:var(--shadow)}
-.block-embed iframe{width:100%;border-radius:var(--r);border:none;box-shadow:var(--shadow)}
-
-/* Gallery */
-.block-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.block-gallery-item{border-radius:var(--r-sm);overflow:hidden;cursor:pointer;aspect-ratio:4/3}
-.block-gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
-.block-gallery-item:hover img{transform:scale(1.06)}
-
-/* Cards grid */
-.block-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
-.block-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:transform .2s}
-.block-card:hover{transform:translateY(-4px)}
-.block-card-img{height:170px;background:var(--pale);display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;overflow:hidden}
-.block-card-img img{width:100%;height:100%;object-fit:cover}
-.block-card-body{padding:18px}
-.block-card-body h4{font-family:'Playfair Display',serif;font-size:.98rem;color:var(--navy);margin-bottom:7px}
-.block-card-body p{font-size:.82rem;color:var(--txt-s);line-height:1.6;margin-bottom:12px}
+/* MEDIA GRID — full size preview */
+.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+.media-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:all .25s;cursor:pointer}
+.media-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.media-preview{width:100%;background:#f8faff;position:relative}
+.media-preview img{width:100%;height:auto;display:block}
+.media-preview video{width:100%;height:auto;display:block;max-height:280px}
+.media-preview iframe{width:100%;height:200px;border:none;display:block}
+.embed-ph{padding:32px 20px;text-align:center;background:linear-gradient(135deg,var(--pale),#ddeeff);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:120px}
+.embed-ph span{font-size:2.8rem}
+.embed-ph p{font-size:.82rem;color:var(--navy);font-weight:600}
+.type-chip{position:absolute;top:10px;right:10px;background:rgba(11,37,69,.8);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:5px;z-index:2}
+.media-body{padding:18px}
+.media-body h4{font-size:.95rem;color:var(--navy);margin-bottom:7px;font-weight:700;font-family:'Playfair Display',serif}
+.media-body p{font-size:.82rem;color:var(--txt-s);line-height:1.55;margin-bottom:12px}
 .btn-view{background:var(--navy);color:#fff;border:none;padding:7px 15px;border-radius:7px;font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
 .btn-view:hover{background:var(--blue-lt)}
 
-/* Media item from DB */
-.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
-.media-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:all .25s}
-.media-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-.media-thumb{height:175px;background:linear-gradient(135deg,var(--pale),var(--border));display:flex;align-items:center;justify-content:center;font-size:2.8rem;position:relative;overflow:hidden}
-.media-thumb img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.type-chip{position:absolute;top:10px;right:10px;background:rgba(11,37,69,.8);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:5px}
-.media-body{padding:18px}
-.media-body h4{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--navy);margin-bottom:7px}
-.media-body p{font-size:.82rem;color:var(--txt-s);line-height:1.55;margin-bottom:12px}
-
-/* Artefak tabs (Siklus) */
+/* ARTEFAK TABS */
 .artefak-tabs{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
-.artefak-tab{padding:9px 20px;border-radius:30px;border:2px solid var(--border);background:#fff;color:var(--txt-m);font-weight:600;font-size:.83rem;cursor:pointer;transition:all .2s;font-family:inherit}
+.artefak-tab{padding:9px 20px;border-radius:30px;border:2px solid var(--border);background:#fff;color:#2E4E7A;font-weight:600;font-size:.83rem;cursor:pointer;transition:all .2s;font-family:inherit}
 .artefak-tab.active,.artefak-tab:hover{background:var(--navy);border-color:var(--navy);color:#fff}
 
-/* ══════════════════════════════════════════════
-   LIGHTBOX / MODAL
-══════════════════════════════════════════════ */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(11,37,69,.65);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+/* LIGHTBOX — full natural size */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
 .modal-bg.open{display:flex}
-.modal-box{background:#fff;border-radius:20px;max-width:800px;width:94%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);animation:mIn .25s ease}
+.modal-box{background:#fff;border-radius:20px;max-width:92vw;width:860px;max-height:94vh;overflow-y:auto;box-shadow:var(--shadow-lg);animation:mIn .25s ease}
 @keyframes mIn{from{opacity:0;transform:scale(.94) translateY(18px)}to{opacity:1;transform:scale(1) translateY(0)}}
-.modal-head{padding:24px 28px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;z-index:2}
-.modal-head h3{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--navy)}
-.modal-close{border:none;background:var(--pale);width:32px;height:32px;border-radius:7px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--txt-m);transition:all .2s}
+.modal-head{padding:20px 26px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;background:#fff;z-index:2}
+.modal-head h3{font-size:1.2rem;color:var(--navy);font-weight:700;font-family:'Playfair Display',serif}
+.modal-close{border:none;background:var(--pale);width:34px;height:34px;border-radius:8px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#2E4E7A;transition:all .2s}
 .modal-close:hover{background:var(--coral);color:#fff}
-.modal-content{padding:24px 28px}
-.modal-content img{width:100%;border-radius:10px;margin-bottom:14px;max-height:360px;object-fit:cover}
-.modal-content video{width:100%;border-radius:10px;margin-bottom:14px}
-.modal-content iframe{width:100%;border:none;border-radius:10px;margin-bottom:14px}
-.modal-desc{color:var(--txt-m);font-size:.9rem;line-height:1.8}
+.modal-content{padding:22px 26px}
+.modal-content img{width:100%;height:auto;border-radius:10px;margin-bottom:14px;display:block}
+.modal-content video{width:100%;height:auto;border-radius:10px;margin-bottom:14px;display:block}
+.modal-content iframe{width:100%;border:none;border-radius:10px;margin-bottom:14px;display:block;min-height:500px}
+.modal-desc{color:#2E4E7A;font-size:.9rem;line-height:1.8;white-space:pre-wrap}
 
-/* ══════════════════════════════════════════════
-   FOOTER
-══════════════════════════════════════════════ */
-footer{background:var(--navy);color:rgba(255,255,255,.7);text-align:center;padding:24px 20px;font-size:.82rem;border-top:1px solid rgba(255,255,255,.08);margin-top:60px}
+/* FOOTER */
+footer{background:var(--navy);color:rgba(255,255,255,.7);text-align:center;padding:24px 20px;font-size:.82rem;margin-top:60px}
 footer strong{color:var(--sky)}
 
-/* ══════════════════════════════════════════════
-   ADMIN LOGIN MODAL
-══════════════════════════════════════════════ */
+/* LOGIN */
 #login-modal{display:none;position:fixed;inset:0;background:rgba(11,37,69,.75);z-index:2000;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
 #login-modal.open{display:flex}
 .login-box{background:#fff;border-radius:20px;padding:44px 36px;max-width:400px;width:90%;box-shadow:var(--shadow-lg)}
 .login-box h2{font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--navy);margin-bottom:6px}
-.login-box p{color:var(--txt-s);font-size:.85rem;margin-bottom:26px}
-.fi{width:100%;border:2px solid var(--border);border-radius:9px;padding:11px 14px;font-family:inherit;font-size:.9rem;color:var(--txt);outline:none;transition:border .2s;margin-bottom:13px;background:#fff}
+.login-box .sub{color:var(--txt-s);font-size:.85rem;margin-bottom:26px}
+.fi{width:100%;border:2px solid var(--border);border-radius:9px;padding:11px 14px;font-family:inherit;font-size:.9rem;color:var(--navy);outline:none;transition:border .2s;margin-bottom:13px;background:#fff}
 .fi:focus{border-color:var(--blue-lt)}
 .err{color:var(--coral);font-size:.8rem;margin-bottom:10px;display:none}
 .btn-login{width:100%;background:var(--navy);color:#fff;border:none;padding:12px;border-radius:9px;font-family:inherit;font-weight:700;font-size:.92rem;cursor:pointer;transition:all .2s}
-.btn-login:hover{background:var(--blue)}
-.btn-cancel{width:100%;background:transparent;border:2px solid var(--border);color:var(--txt-m);padding:10px;border-radius:9px;font-family:inherit;font-weight:600;font-size:.88rem;cursor:pointer;margin-top:8px;transition:all .2s}
+.btn-login:hover{background:var(--blue-lt)}
+.btn-cancel{width:100%;background:transparent;border:2px solid var(--border);color:#2E4E7A;padding:10px;border-radius:9px;font-family:inherit;font-weight:600;font-size:.88rem;cursor:pointer;margin-top:8px;transition:all .2s}
 .btn-cancel:hover{border-color:var(--navy);color:var(--navy)}
 
-/* ══════════════════════════════════════════════
-   ADMIN PANEL
-══════════════════════════════════════════════ */
-#admin{display:none;position:fixed;inset:0;z-index:1500;background:var(--off);flex-direction:column}
+/* ADMIN */
+#admin{display:none;position:fixed;inset:0;z-index:1500;background:#F0F6FF;flex-direction:column}
 #admin.open{display:flex}
 .adm-top{background:var(--navy);color:#fff;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;flex-shrink:0}
-.adm-top h2{font-family:'Playfair Display',serif;font-size:1.1rem;display:flex;align-items:center;gap:8px}
+.adm-top h2{font-family:'Playfair Display',serif;font-size:1.1rem}
 .adm-top-btns{display:flex;gap:8px}
 .adm-btn{border:none;padding:7px 15px;border-radius:7px;font-family:inherit;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s}
-.adm-btn-ghost{background:rgba(255,255,255,.12);color:#fff}
-.adm-btn-ghost:hover{background:rgba(255,255,255,.22)}
-.adm-btn-danger{background:rgba(239,83,80,.25);color:#ff8a80}
-.adm-btn-danger:hover{background:var(--coral);color:#fff}
+.adm-btn-ghost{background:rgba(255,255,255,.12);color:#fff}.adm-btn-ghost:hover{background:rgba(255,255,255,.22)}
+.adm-btn-danger{background:rgba(239,83,80,.25);color:#ff8a80}.adm-btn-danger:hover{background:var(--coral);color:#fff}
 .adm-body{display:flex;flex:1;overflow:hidden}
-.adm-sidebar{width:220px;background:#fff;border-right:2px solid var(--border);overflow-y:auto;flex-shrink:0}
+.adm-sidebar{width:230px;background:#fff;border-right:2px solid var(--border);overflow-y:auto;flex-shrink:0}
 .adm-section-title{padding:14px 18px 4px;font-size:.67rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--txt-s)}
-.adm-nav-item{display:block;padding:10px 18px;font-size:.84rem;font-weight:500;color:var(--txt-m);cursor:pointer;border-left:3px solid transparent;transition:all .2s}
+.adm-nav-item{display:block;padding:10px 18px;font-size:.84rem;font-weight:500;color:#2E4E7A;cursor:pointer;border-left:3px solid transparent;transition:all .2s}
 .adm-nav-item:hover,.adm-nav-item.active{background:var(--pale);color:var(--navy);border-left-color:var(--blue-lt)}
-.adm-main{flex:1;overflow-y:auto;padding:32px;max-width:960px}
+.adm-main{flex:1;overflow-y:auto;padding:32px;max-width:980px}
 .adm-card{background:#fff;border-radius:var(--r);padding:28px;box-shadow:var(--shadow);margin-bottom:24px}
 .adm-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy);padding-bottom:14px;border-bottom:2px solid var(--border);margin-bottom:20px;display:flex;align-items:center;gap:8px}
-.adm-section{display:none}
-.adm-section.active{display:block}
-.fl{display:block;font-size:.75rem;font-weight:700;color:var(--txt-m);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
-.fi-a{width:100%;border:2px solid var(--border);border-radius:9px;padding:10px 13px;font-family:inherit;font-size:.88rem;color:var(--txt);outline:none;transition:border .2s;margin-bottom:15px;background:#fff}
+.adm-section{display:none}.adm-section.active{display:block}
+.fl{display:block;font-size:.75rem;font-weight:700;color:#2E4E7A;letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
+.fi-a{width:100%;border:2px solid var(--border);border-radius:9px;padding:10px 13px;font-family:inherit;font-size:.88rem;color:var(--navy);outline:none;transition:border .2s;margin-bottom:15px;background:#fff}
 .fi-a:focus{border-color:var(--blue-lt)}
 textarea.fi-a{min-height:90px;resize:vertical}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -275,175 +182,109 @@ textarea.fi-a{min-height:90px;resize:vertical}
 .upload-z input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .upload-z p{color:var(--txt-s);font-size:.82rem}
 .upload-z strong{color:var(--blue);display:block;margin-bottom:3px;font-size:.85rem}
-.prev-img{max-width:160px;max-height:110px;border-radius:8px;margin-top:8px;display:none;border:2px solid var(--border)}
+.prev-img{max-width:200px;max-height:130px;border-radius:8px;margin-top:8px;display:none;border:2px solid var(--border)}
 .btn-save{background:var(--navy);color:#fff;border:none;padding:11px 26px;border-radius:9px;font-family:inherit;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .2s}
-.btn-save:hover{background:var(--blue)}
-.btn-add{background:var(--teal);color:#fff;border:none;padding:9px 18px;border-radius:8px;font-family:inherit;font-weight:600;font-size:.8rem;cursor:pointer;transition:all .2s;margin-bottom:14px}
+.btn-save:hover{background:var(--blue-lt)}
+.btn-add{background:var(--teal);color:#fff;border:none;padding:9px 18px;border-radius:8px;font-family:inherit;font-weight:600;font-size:.8rem;cursor:pointer;transition:all .2s;margin-bottom:14px;margin-right:6px}
 .btn-add:hover{background:#00796b}
+.btn-warn{background:#fff3e0;color:#e65100;border:2px solid #ffe0b2;padding:9px 18px;border-radius:8px;font-family:inherit;font-weight:600;font-size:.8rem;cursor:pointer;transition:all .2s;margin-bottom:14px}
+.btn-warn:hover{background:#ffe0b2}
 .items-list{display:flex;flex-direction:column;gap:9px;margin-bottom:16px}
 .item-row{background:var(--pale);border-radius:9px;padding:12px 15px;display:flex;align-items:center;gap:10px}
 .item-row-info{flex:1;min-width:0}
 .item-row-info strong{display:block;font-size:.85rem;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .item-row-info span{font-size:.76rem;color:var(--txt-s)}
-.item-row-btns{display:flex;gap:6px;flex-shrink:0}
-.btn-e{border:none;padding:6px 11px;border-radius:6px;font-family:inherit;font-size:.73rem;font-weight:700;cursor:pointer}
+.item-row-btns{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.btn-e{border:none;padding:6px 10px;border-radius:6px;font-family:inherit;font-size:.72rem;font-weight:700;cursor:pointer}
 .btn-e-edit{background:var(--blue);color:#fff}
 .btn-e-del{background:#ffebee;color:#c62828}
-.adm-toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:10px;font-size:.85rem;font-weight:500;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+.btn-e-hide{background:#fff8e1;color:#f57f17}
+.adm-toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:10px;font-size:.85rem;font-weight:500;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;max-width:340px}
 .adm-toast.show{opacity:1}
 
-/* Page content editor */
-.content-block-row{background:#f8fbff;border:1px solid var(--border);border-radius:9px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:flex-start;gap:10px}
-.content-block-row .cb-info{flex:1;min-width:0}
-.content-block-row .cb-info strong{display:block;font-size:.85rem;color:var(--navy)}
-.content-block-row .cb-info span{font-size:.76rem;color:var(--txt-s)}
+/* FONT CONTROLS */
+.font-preview-box{border:2px solid var(--border);border-radius:10px;padding:18px;margin-bottom:16px;text-align:center;min-height:60px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.font-btn{border:2px solid var(--border);background:#fff;width:38px;height:36px;border-radius:7px;font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;justify-content:center}
+.font-btn.active,.font-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
 
-/* Item edit sub-modal */
-#item-modal{display:none;position:fixed;inset:0;background:rgba(11,37,69,.65);z-index:3000;align-items:center;justify-content:center;backdrop-filter:blur(5px)}
-#item-modal.open{display:flex}
-.item-modal-box{background:#fff;border-radius:18px;max-width:660px;width:92%;max-height:88vh;overflow-y:auto;padding:30px;box-shadow:var(--shadow-lg)}
-.item-modal-box h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--navy);margin-bottom:18px}
+/* MENU MANAGER */
+.menu-tree{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.menu-node{background:var(--pale);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;border-left:3px solid var(--blue)}
+.menu-node.sub{margin-left:28px;border-left-color:var(--sky);background:#eef6ff}
+.menu-node.hidden-node{opacity:.5;border-left-color:#bbb}
+.menu-node-info{flex:1;min-width:0}
+.menu-node-info strong{display:block;font-size:.87rem;color:var(--navy)}
+.menu-node-info span{font-size:.73rem;color:var(--txt-s)}
+.menu-node-btns{display:flex;gap:5px;flex-shrink:0}
 
-/* ══════════════════════════════════════════════
-   UTILITIES & RESPONSIVE
-══════════════════════════════════════════════ */
-.tag{display:inline-block;background:var(--pale);color:var(--blue);font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:10px}
-.divider{width:48px;height:3px;background:linear-gradient(90deg,var(--blue),var(--sky));border-radius:2px;margin:10px 0 28px}
+/* Item + Menu modals */
+#item-modal,#menu-modal{display:none;position:fixed;inset:0;background:rgba(11,37,69,.65);z-index:3000;align-items:center;justify-content:center;backdrop-filter:blur(5px)}
+#item-modal.open,#menu-modal.open{display:flex}
+.item-modal-box{background:#fff;border-radius:18px;max-width:680px;width:94%;max-height:90vh;overflow-y:auto;padding:30px;box-shadow:var(--shadow-lg)}
+.item-modal-box h3,.menu-modal-box h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--navy);margin-bottom:18px}
+.menu-modal-box{background:#fff;border-radius:18px;max-width:500px;width:94%;padding:30px;box-shadow:var(--shadow-lg)}
+
 .empty-state{text-align:center;padding:48px 20px;color:var(--txt-s);font-size:.9rem}
 .empty-state span{display:block;font-size:2.5rem;margin-bottom:12px}
+
 @media(max-width:900px){
   .shortcut-grid{grid-template-columns:repeat(2,1fr)}
   .location-grid{grid-template-columns:1fr}
   .frow{grid-template-columns:1fr}
-  .adm-sidebar{width:180px}
+  .adm-sidebar{width:185px}
+  .media-grid{grid-template-columns:1fr}
 }
 @media(max-width:660px){
-  .nav-menu{display:none}
-  .hamburger{display:flex}
-  .hero-inner{padding:60px 24px}
-  .hero-inner h1{font-size:2rem}
+  .nav-menu{display:none}.hamburger{display:flex}
+  .hero-inner{padding:60px 24px}.hero-inner h1{font-size:2rem}
   .content-page-wrap{padding:36px 20px}
+  .adm-sidebar{display:none}.adm-main{padding:18px}
   .shortcut-grid{grid-template-columns:1fr 1fr}
   .location-grid{padding:28px 20px}
-  .menu-cards-section{padding:28px 20px}
-  .adm-sidebar{display:none}
-  .adm-main{padding:18px}
 }
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
-<div id="loading">
-  <div class="loader-ring"></div>
-  <div class="loader-text">Memuat Portofolio...</div>
-</div>
+<div id="loading"><div class="loader-ring"></div><div class="loader-text">Memuat Portofolio...</div></div>
 
-<!-- NAVBAR -->
 <nav id="navbar">
-  <div class="nav-logo" id="nav-logo-text">E-Portofolio <span>Tia Kamalini</span></div>
-  <div class="nav-menu" id="nav-menu">
-    <div class="nav-item">
-      <button class="nav-link active" id="nav-halaman-muka" onclick="navigate('halaman-muka')">Halaman Muka</button>
-    </div>
-    <div class="nav-item">
-      <button class="nav-link" id="nav-profil">Profil <span class="arrow">▾</span></button>
-      <div class="nav-dropdown">
-        <div class="nav-dropdown-box">
-          <a class="nav-dd-link" onclick="navigate('profil/identitas')">Identitas</a>
-          <a class="nav-dd-link" onclick="navigate('profil/keunikan-daerah')">Keunikan Daerah</a>
-          <a class="nav-dd-link" onclick="navigate('profil/inspirasi-dan-tujuan')">Inspirasi dan Tujuan</a>
-        </div>
-      </div>
-    </div>
-    <div class="nav-item">
-      <button class="nav-link" id="nav-artefak">Artefak <span class="arrow">▾</span></button>
-      <div class="nav-dropdown">
-        <div class="nav-dropdown-box">
-          <a class="nav-dd-link" onclick="navigate('artefak/siklus-1')">Siklus 1</a>
-          <a class="nav-dd-link" onclick="navigate('artefak/siklus-2')">Siklus 2</a>
-          <a class="nav-dd-link" onclick="navigate('artefak/siklus-3')">Siklus 3</a>
-        </div>
-      </div>
-    </div>
-    <div class="nav-item">
-      <button class="nav-link" id="nav-lampiran">Lampiran <span class="arrow">▾</span></button>
-      <div class="nav-dropdown">
-        <div class="nav-dropdown-box">
-          <a class="nav-dd-link" onclick="navigate('lampiran/penilaian-perangkat-pembelajaran')">Penilaian Perangkat Pembelajaran</a>
-          <a class="nav-dd-link" onclick="navigate('lampiran/penilaian-praktik-mengajar')">Penilaian Praktik Mengajar</a>
-        </div>
-      </div>
-    </div>
-    <div class="nav-item">
-      <button class="nav-link" id="nav-model-guru" onclick="navigate('model-guru')">Model Guru</button>
-    </div>
-  </div>
+  <div class="nav-logo" id="nav-logo-text" onclick="navigate('halaman-muka')">E-Portofolio <span>Tia Kamalini</span></div>
+  <div class="nav-menu" id="nav-menu"></div>
   <div class="nav-right">
     <button class="btn-admin" onclick="openLoginModal()">⚙ Admin</button>
-    <div class="hamburger" onclick="toggleMobile()" id="hamburger">
-      <span></span><span></span><span></span>
-    </div>
+    <div class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
   </div>
 </nav>
+<div class="mobile-nav" id="mobile-nav"></div>
 
-<!-- MOBILE NAV -->
-<div class="mobile-nav" id="mobile-nav">
-  <a class="mobile-nav-link" onclick="navigate('halaman-muka');toggleMobile()">Halaman Muka</a>
-  <a class="mobile-nav-link">Profil</a>
-  <div class="mobile-nav-sub">
-    <a class="mobile-nav-link" onclick="navigate('profil/identitas');toggleMobile()">Identitas</a>
-    <a class="mobile-nav-link" onclick="navigate('profil/keunikan-daerah');toggleMobile()">Keunikan Daerah</a>
-    <a class="mobile-nav-link" onclick="navigate('profil/inspirasi-dan-tujuan');toggleMobile()">Inspirasi dan Tujuan</a>
-  </div>
-  <a class="mobile-nav-link">Artefak</a>
-  <div class="mobile-nav-sub">
-    <a class="mobile-nav-link" onclick="navigate('artefak/siklus-1');toggleMobile()">Siklus 1</a>
-    <a class="mobile-nav-link" onclick="navigate('artefak/siklus-2');toggleMobile()">Siklus 2</a>
-    <a class="mobile-nav-link" onclick="navigate('artefak/siklus-3');toggleMobile()">Siklus 3</a>
-  </div>
-  <a class="mobile-nav-link">Lampiran</a>
-  <div class="mobile-nav-sub">
-    <a class="mobile-nav-link" onclick="navigate('lampiran/penilaian-perangkat-pembelajaran');toggleMobile()">Penilaian Perangkat Pembelajaran</a>
-    <a class="mobile-nav-link" onclick="navigate('lampiran/penilaian-praktik-mengajar');toggleMobile()">Penilaian Praktik Mengajar</a>
-  </div>
-  <a class="mobile-nav-link" onclick="navigate('model-guru');toggleMobile()">Model Guru</a>
-</div>
+<div id="app"></div>
 
-<!-- APP -->
-<div id="app">
-  <!-- Pages rendered dynamically -->
-</div>
-
-<!-- FOOTER -->
 <footer id="site-footer">
   <span id="footer-text">© 2026 | E-Portofolio Tia Kamalini | PPG</span><br>
   Email: <strong id="footer-email">madetia92@gmail.com</strong> | HP: <strong id="footer-phone">+62 878-2566-2597</strong>
 </footer>
 
-<!-- MEDIA MODAL -->
+<!-- LIGHTBOX -->
 <div class="modal-bg" id="media-modal" onclick="if(event.target===this)closeMediaModal()">
   <div class="modal-box">
-    <div class="modal-head">
-      <h3 id="mm-title">Detail</h3>
-      <button class="modal-close" onclick="closeMediaModal()">✕</button>
-    </div>
+    <div class="modal-head"><h3 id="mm-title">Detail</h3><button class="modal-close" onclick="closeMediaModal()">✕</button></div>
     <div class="modal-content" id="mm-body"></div>
   </div>
 </div>
 
-<!-- LOGIN MODAL -->
+<!-- LOGIN -->
 <div id="login-modal">
   <div class="login-box">
     <div style="font-size:2.4rem;margin-bottom:12px">🔐</div>
     <h2>Admin Login</h2>
-    <p>Masukkan kredensial untuk mengelola portofolio</p>
+    <p class="sub">Masukkan kredensial untuk mengelola portofolio</p>
     <div class="err" id="login-err">Username atau password salah!</div>
     <input class="fi" id="li-user" type="text" placeholder="Username" autocomplete="off">
     <input class="fi" id="li-pass" type="password" placeholder="Password">
     <button class="btn-login" onclick="doLogin()">Masuk Dashboard</button>
     <button class="btn-cancel" onclick="closeLoginModal()">Batal</button>
-    <p style="margin-top:16px;font-size:.75rem;color:#aaa;text-align:center">Default: <strong style="color:#666">admin</strong> / <strong style="color:#666">tia2024</strong></p>
+    <p style="margin-top:16px;font-size:.74rem;color:#aaa;text-align:center">Default: <strong style="color:#666">admin</strong> / <strong style="color:#666">tia2024</strong></p>
   </div>
 </div>
 
@@ -458,19 +299,15 @@ textarea.fi-a{min-height:90px;resize:vertical}
   </div>
   <div class="adm-body">
     <div class="adm-sidebar" id="adm-sidebar">
-      <div class="adm-section-title">Pengaturan</div>
+      <div class="adm-section-title">Tampilan</div>
       <div class="adm-nav-item active" onclick="showAdmSection('adm-settings',this)">🌐 Pengaturan Umum</div>
-      <div class="adm-section-title">Halaman</div>
-      <div class="adm-nav-item" onclick="showAdmSection('adm-halaman-muka',this)">🏠 Halaman Muka</div>
-      <div class="adm-nav-item" onclick="showAdmSection('adm-profil-identitas',this)">👤 Identitas</div>
-      <div class="adm-nav-item" onclick="showAdmSection('adm-profil-keunikan',this)">🌺 Keunikan Daerah</div>
-      <div class="adm-nav-item" onclick="showAdmSection('adm-profil-inspirasi',this)">💡 Inspirasi & Tujuan</div>
-      <div class="adm-nav-item" onclick="showAdmSection('adm-artefak-1',this)">📚 Artefak Siklus 1</div>
-      <div class="adm-nav-item" onclick="showAdmSection('adm-artefak-2',this)">📚 Artefak Siklus 2</div>
-      <div class="adm-nav-item" onclick="showAdmSection('adm-artefak-3',this)">📚 Artefak Siklus 3</div>
-      <div class="adm-nav-item" onclick="showAdmSection('adm-lamp-perangkat',this)">📎 Penilaian Perangkat</div>
-      <div class="adm-nav-item" onclick="showAdmSection('adm-lamp-praktik',this)">📎 Penilaian Praktik</div>
-      <div class="adm-nav-item" onclick="showAdmSection('adm-model-guru',this)">🏫 Model Guru</div>
+      <div class="adm-nav-item" onclick="showAdmSection('adm-design',this)">🎨 Desain & Background</div>
+      <div class="adm-nav-item" onclick="showAdmSection('adm-typo',this)">🔤 Tipografi & Font</div>
+      <div class="adm-nav-item" onclick="showAdmSection('adm-hero',this)">🖼 Header / Banner</div>
+      <div class="adm-section-title">Menu</div>
+      <div class="adm-nav-item" onclick="showAdmSection('adm-menus',this)">🗂 Kelola Menu & Sub Menu</div>
+      <div class="adm-section-title">Konten Halaman</div>
+      <div id="adm-page-nav"></div>
       <div class="adm-section-title">Akun</div>
       <div class="adm-nav-item" onclick="showAdmSection('adm-account',this)">🔑 Ganti Password</div>
     </div>
@@ -479,98 +316,172 @@ textarea.fi-a{min-height:90px;resize:vertical}
       <!-- SETTINGS -->
       <div class="adm-section active" id="adm-settings">
         <div class="adm-card">
-          <h3>🌐 Pengaturan Umum Situs</h3>
-          <label class="fl">Logo / Nama Navbar</label>
+          <h3>🌐 Pengaturan Umum</h3>
+          <label class="fl">Nama / Logo Navbar</label>
           <input class="fi-a" id="s-logo" placeholder="E-Portofolio Tia Kamalini">
           <div class="frow">
-            <div>
-              <label class="fl">Email Footer</label>
-              <input class="fi-a" id="s-email" placeholder="email@gmail.com">
-            </div>
-            <div>
-              <label class="fl">Nomor HP Footer</label>
-              <input class="fi-a" id="s-phone" placeholder="+62...">
-            </div>
+            <div><label class="fl">Email Footer</label><input class="fi-a" id="s-email" placeholder="email@gmail.com"></div>
+            <div><label class="fl">Nomor HP Footer</label><input class="fi-a" id="s-phone" placeholder="+62..."></div>
           </div>
           <label class="fl">Teks Footer</label>
           <input class="fi-a" id="s-footer" placeholder="© 2026 | E-Portofolio...">
           <label class="fl">Foto Profil / Avatar Hero</label>
-          <div class="upload-z">
-            <strong>📷 Upload Foto Profil</strong>
-            <p>JPG / PNG / GIF</p>
-            <input type="file" accept="image/*" onchange="handleUpload(this,'s-avatar')">
-          </div>
+          <div class="upload-z"><strong>📷 Upload Foto (JPG/PNG/GIF)</strong><p>Mendukung GIF animasi</p><input type="file" accept="image/*" onchange="handleUpload(this,'s-avatar')"></div>
           <img id="prev-s-avatar" class="prev-img">
-          <label class="fl" style="margin-top:4px">Atau URL Foto Profil</label>
+          <label class="fl">Atau URL Foto</label>
           <input class="fi-a" id="s-avatar-url" placeholder="https://...">
-          <button class="btn-save" onclick="saveSettings()">💾 Simpan Pengaturan</button>
+          <button class="btn-save" onclick="saveSettings()">💾 Simpan</button>
         </div>
       </div>
 
-      <!-- HALAMAN MUKA ADMIN -->
-      <div class="adm-section" id="adm-halaman-muka">
+      <!-- DESAIN -->
+      <div class="adm-section" id="adm-design">
         <div class="adm-card">
-          <h3>🏠 Halaman Muka</h3>
+          <h3>🎨 Background Website</h3>
+          <label class="fl">Warna Background</label>
+          <div style="display:flex;gap:10px;align-items:center;margin-bottom:15px;flex-wrap:wrap">
+            <input type="color" id="d-bg-color" value="#F0F6FF" style="width:48px;height:38px;border:2px solid var(--border);border-radius:8px;cursor:pointer;padding:2px" oninput="document.getElementById('d-bg-color-hex').value=this.value">
+            <input class="fi-a" id="d-bg-color-hex" placeholder="#F0F6FF" style="width:130px;margin-bottom:0" oninput="syncColorPicker('d-bg-color',this.value)">
+            <button class="btn-e btn-e-edit" onclick="applyBgColor()">Terapkan Warna</button>
+          </div>
+          <label class="fl">Upload Background Gambar / GIF</label>
+          <div class="upload-z"><strong>🖼 Upload Gambar/GIF Background</strong><p>JPG/PNG/GIF/WebP</p><input type="file" accept="image/*" onchange="handleUpload(this,'site-bg')"></div>
+          <img id="prev-site-bg" class="prev-img">
+          <label class="fl">Atau URL Gambar Background</label>
+          <input class="fi-a" id="d-bg-img-url" placeholder="https://...">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+            <button class="btn-save" onclick="saveDesign()">💾 Simpan Desain</button>
+            <button class="btn-warn" onclick="clearBg()">✕ Hapus Background Gambar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIPOGRAFI -->
+      <div class="adm-section" id="adm-typo">
+        <div class="adm-card">
+          <h3>🔤 Tipografi & Font</h3>
+          <label class="fl">Font Website</label>
+          <select class="fi-a" id="d-font" onchange="previewFont()">
+            <option value="'Plus Jakarta Sans',sans-serif">Plus Jakarta Sans (Default)</option>
+            <option value="'Poppins',sans-serif">Poppins</option>
+            <option value="'Roboto',sans-serif">Roboto</option>
+            <option value="'Lato',sans-serif">Lato</option>
+            <option value="'Nunito',sans-serif">Nunito</option>
+            <option value="'Open Sans',sans-serif">Open Sans</option>
+            <option value="'Merriweather',serif">Merriweather</option>
+            <option value="'Playfair Display',serif">Playfair Display</option>
+            <option value="Georgia,serif">Georgia</option>
+            <option value="Arial,sans-serif">Arial</option>
+          </select>
+          <div class="frow">
+            <div>
+              <label class="fl">Ukuran Font</label>
+              <select class="fi-a" id="d-font-size" onchange="previewFont()">
+                <option value="14px">14px – Kecil</option>
+                <option value="15px">15px</option>
+                <option value="16px">16px – Default</option>
+                <option value="17px">17px</option>
+                <option value="18px">18px – Besar</option>
+                <option value="20px">20px – Sangat Besar</option>
+              </select>
+            </div>
+            <div>
+              <label class="fl">Warna Teks</label>
+              <div style="display:flex;gap:8px;align-items:center">
+                <input type="color" id="d-txt-color" value="#0B2545" style="width:44px;height:38px;border:2px solid var(--border);border-radius:8px;cursor:pointer;padding:2px" oninput="document.getElementById('d-txt-hex').value=this.value;previewFont()">
+                <input class="fi-a" id="d-txt-hex" placeholder="#0B2545" style="margin-bottom:0;flex:1" oninput="syncColorPicker('d-txt-color',this.value);previewFont()">
+              </div>
+            </div>
+          </div>
+          <label class="fl">Gaya Teks</label>
+          <div style="display:flex;gap:8px;margin-bottom:16px;align-items:center">
+            <button class="font-btn" id="fb-bold" onclick="toggleFontStyle('bold')" title="Bold"><b>B</b></button>
+            <button class="font-btn" id="fb-italic" onclick="toggleFontStyle('italic')" title="Italic"><i>I</i></button>
+            <button class="font-btn" id="fb-underline" onclick="toggleFontStyle('underline')" title="Underline"><u>U</u></button>
+          </div>
+          <label class="fl">Preview</label>
+          <div class="font-preview-box" id="font-preview-box">Ini adalah contoh tampilan teks di website Anda. السلام عليكم — Hello World!</div>
+          <button class="btn-save" onclick="saveTypography()">💾 Simpan Tipografi</button>
+        </div>
+      </div>
+
+      <!-- HERO -->
+      <div class="adm-section" id="adm-hero">
+        <div class="adm-card">
+          <h3>🖼 Header / Banner</h3>
           <label class="fl">Judul Hero</label>
           <input class="fi-a" id="hm-title" placeholder="E-Portofolio Tia Kamalini">
           <label class="fl">Subtitle Hero</label>
           <input class="fi-a" id="hm-sub" placeholder="PPG | Universitas...">
-          <label class="fl">Background Banner</label>
+          <label class="fl">Tinggi Banner</label>
+          <select class="fi-a" id="hm-height">
+            <option value="300px">Kecil (300px)</option>
+            <option value="420px">Sedang (420px)</option>
+            <option value="560px">Normal (560px)</option>
+            <option value="680px">Besar (680px)</option>
+            <option value="100vh">Layar Penuh</option>
+          </select>
+          <label class="fl">Posisi Teks</label>
+          <select class="fi-a" id="hm-align">
+            <option value="center">Tengah</option>
+            <option value="flex-start">Kiri</option>
+            <option value="flex-end">Kanan</option>
+          </select>
+          <label class="fl">Upload Gambar / <strong style="color:var(--coral)">GIF</strong> Banner — warna otomatis dari gambar, tanpa overlay biru</label>
           <div class="upload-z">
-            <strong>🖼 Upload Background</strong>
-            <p>Gambar landscape direkomendasikan</p>
+            <strong>🖼 Upload Banner (JPG/PNG/GIF Animasi)</strong>
+            <p>Gambar ditampilkan penuh, tidak ada lapisan warna di atas gambar</p>
             <input type="file" accept="image/*" onchange="handleUpload(this,'hm-bg')">
           </div>
           <img id="prev-hm-bg" class="prev-img">
-          <label class="fl">Atau URL Background</label>
+          <label class="fl">Atau URL Gambar/GIF</label>
           <input class="fi-a" id="hm-bg-url" placeholder="https://...">
+          <div style="background:#fff8e1;border-radius:9px;padding:12px 16px;margin-bottom:16px;font-size:.82rem;color:#795548">
+            💡 <strong>Tips:</strong> Jika tidak ada gambar, banner akan tampil dengan gradasi warna. Jika ada gambar/GIF, banner menampilkan gambar tanpa overlay biru.
+          </div>
           <div style="border-top:2px solid var(--border);margin:20px 0;padding-top:20px">
-            <h4 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:14px">Kartu Lokasi</h4>
+            <h4 style="font-family:'Playfair Display',serif;color:var(--navy);margin-bottom:14px">📍 Kartu Lokasi</h4>
             <div class="frow">
               <div>
-                <label class="fl">Nama Kampus LPTK</label>
-                <input class="fi-a" id="hm-lptk-name" placeholder="Universitas Pendidikan Ganesha">
-                <label class="fl">Deskripsi LPTK</label>
-                <textarea class="fi-a" id="hm-lptk-desc"></textarea>
-                <label class="fl">Embed URL Peta LPTK</label>
-                <input class="fi-a" id="hm-lptk-map" placeholder="https://maps-api-ssl.google.com/...">
+                <label class="fl">Nama Kampus LPTK</label><input class="fi-a" id="hm-lptk-name" placeholder="Universitas Pendidikan Ganesha">
+                <label class="fl">Deskripsi</label><textarea class="fi-a" id="hm-lptk-desc"></textarea>
+                <label class="fl">Embed URL Peta</label><input class="fi-a" id="hm-lptk-map" placeholder="https://maps.google.com/maps?...&output=embed">
               </div>
               <div>
-                <label class="fl">Nama Sekolah PPL</label>
-                <input class="fi-a" id="hm-ppl-name" placeholder="SD Negeri 1 Baktiseraga">
-                <label class="fl">Deskripsi Sekolah</label>
-                <textarea class="fi-a" id="hm-ppl-desc"></textarea>
-                <label class="fl">Embed URL Peta Sekolah</label>
-                <input class="fi-a" id="hm-ppl-map" placeholder="https://maps-api-ssl.google.com/...">
+                <label class="fl">Nama Sekolah PPL</label><input class="fi-a" id="hm-ppl-name" placeholder="SD Negeri 1 Baktiseraga">
+                <label class="fl">Deskripsi</label><textarea class="fi-a" id="hm-ppl-desc"></textarea>
+                <label class="fl">Embed URL Peta</label><input class="fi-a" id="hm-ppl-map" placeholder="https://maps.google.com/maps?...&output=embed">
               </div>
             </div>
           </div>
-          <button class="btn-save" onclick="saveHalamanMuka()">💾 Simpan</button>
+          <button class="btn-save" onclick="saveHalamanMuka()">💾 Simpan Header</button>
         </div>
       </div>
 
-      <!-- PAGE MEDIA SECTIONS (profil, artefak, lampiran, model guru) -->
-      <div class="adm-section" id="adm-profil-identitas"><div class="adm-card"><h3>👤 Identitas</h3></div><div id="content-profil/identitas"></div></div>
-      <div class="adm-section" id="adm-profil-keunikan"><div class="adm-card"><h3>🌺 Keunikan Daerah</h3></div><div id="content-profil/keunikan-daerah"></div></div>
-      <div class="adm-section" id="adm-profil-inspirasi"><div class="adm-card"><h3>💡 Inspirasi dan Tujuan</h3></div><div id="content-profil/inspirasi-dan-tujuan"></div></div>
-      <div class="adm-section" id="adm-artefak-1"><div class="adm-card"><h3>📚 Artefak Siklus 1</h3></div><div id="content-artefak/siklus-1"></div></div>
-      <div class="adm-section" id="adm-artefak-2"><div class="adm-card"><h3>📚 Artefak Siklus 2</h3></div><div id="content-artefak/siklus-2"></div></div>
-      <div class="adm-section" id="adm-artefak-3"><div class="adm-card"><h3>📚 Artefak Siklus 3</h3></div><div id="content-artefak/siklus-3"></div></div>
-      <div class="adm-section" id="adm-lamp-perangkat"><div class="adm-card"><h3>📎 Penilaian Perangkat Pembelajaran</h3></div><div id="content-lampiran/penilaian-perangkat-pembelajaran"></div></div>
-      <div class="adm-section" id="adm-lamp-praktik"><div class="adm-card"><h3>📎 Penilaian Praktik Mengajar</h3></div><div id="content-lampiran/penilaian-praktik-mengajar"></div></div>
-      <div class="adm-section" id="adm-model-guru"><div class="adm-card"><h3>🏫 Model Guru</h3></div><div id="content-model-guru"></div></div>
+      <!-- KELOLA MENU -->
+      <div class="adm-section" id="adm-menus">
+        <div class="adm-card">
+          <h3>🗂 Kelola Menu & Sub Menu</h3>
+          <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+            <button class="btn-add" onclick="openMenuModal('parent')">+ Tambah Menu Utama</button>
+            <button class="btn-add" style="background:#1565c0" onclick="openMenuModal('child')">+ Tambah Sub Menu</button>
+          </div>
+          <div class="menu-tree" id="menu-tree-admin"></div>
+          <p style="font-size:.78rem;color:var(--txt-s)">💡 Menu yang di-hide tidak tampil di website tapi kontennya tetap tersimpan.</p>
+        </div>
+      </div>
+
+      <!-- PAGE SECTIONS (dynamic) -->
+      <div id="adm-page-sections"></div>
 
       <!-- ACCOUNT -->
       <div class="adm-section" id="adm-account">
         <div class="adm-card">
-          <h3>🔑 Ganti Kredensial Admin</h3>
-          <label class="fl">Username Baru</label>
-          <input class="fi-a" id="ac-user" placeholder="admin">
-          <label class="fl">Password Baru</label>
-          <input class="fi-a" type="password" id="ac-pass">
-          <label class="fl">Konfirmasi Password</label>
-          <input class="fi-a" type="password" id="ac-conf">
-          <button class="btn-save" onclick="changePassword()">🔐 Ubah Kredensial</button>
+          <h3>🔑 Ganti Kredensial</h3>
+          <label class="fl">Username Baru</label><input class="fi-a" id="ac-user" placeholder="admin">
+          <label class="fl">Password Baru</label><input class="fi-a" type="password" id="ac-pass">
+          <label class="fl">Konfirmasi Password</label><input class="fi-a" type="password" id="ac-conf">
+          <button class="btn-save" onclick="changePassword()">🔐 Ubah</button>
         </div>
       </div>
 
@@ -578,61 +489,67 @@ textarea.fi-a{min-height:90px;resize:vertical}
   </div>
 </div>
 
-<!-- ITEM EDIT MODAL -->
+<!-- ITEM MODAL -->
 <div id="item-modal" onclick="if(event.target===this)closeItemModal()">
   <div class="item-modal-box">
     <h3 id="im-title">Tambah / Edit Item</h3>
-    <input type="hidden" id="im-slug">
-    <input type="hidden" id="im-id">
-    <label class="fl">Judul</label>
-    <input class="fi-a" id="im-item-title" placeholder="Judul konten">
-    <label class="fl">Deskripsi</label>
-    <textarea class="fi-a" id="im-item-desc" placeholder="Deskripsi..."></textarea>
+    <input type="hidden" id="im-slug"><input type="hidden" id="im-id">
+    <label class="fl">Judul</label><input class="fi-a" id="im-item-title" placeholder="Judul konten">
+    <label class="fl">Deskripsi</label><textarea class="fi-a" id="im-item-desc" placeholder="Deskripsi..."></textarea>
     <label class="fl">Tipe Media</label>
     <select class="fi-a" id="im-type" onchange="onImTypeChange()">
       <option value="text">Teks saja</option>
-      <option value="image">Foto / Gambar</option>
+      <option value="image">Foto / Gambar / GIF</option>
       <option value="video">Video (Upload)</option>
-      <option value="youtube">Video YouTube (Embed)</option>
+      <option value="youtube">YouTube (Embed)</option>
       <option value="drive-doc">Google Drive Dokumen</option>
       <option value="drive-sheet">Google Drive Sheet/Excel</option>
       <option value="slide">Google Slides</option>
       <option value="link">Link Eksternal</option>
     </select>
-    <!-- Image -->
     <div id="im-img-wrap" style="display:none">
-      <label class="fl">Upload Gambar</label>
-      <div class="upload-z" style="margin-bottom:8px">
-        <strong>📷 Pilih Gambar</strong><p>JPG/PNG/GIF</p>
-        <input type="file" accept="image/*" onchange="handleUpload(this,'im-img')">
-      </div>
-      <img id="prev-im-img" class="prev-img" style="margin-bottom:10px">
-      <label class="fl">Atau URL Gambar</label>
-      <input class="fi-a" id="im-img-url" placeholder="https://...">
+      <label class="fl">Upload Gambar / GIF</label>
+      <div class="upload-z"><strong>📷 Pilih Gambar / GIF</strong><p>JPG/PNG/GIF/WebP — ukuran asli ditampilkan</p><input type="file" accept="image/*" onchange="handleUpload(this,'im-img')"></div>
+      <img id="prev-im-img" class="prev-img" style="max-width:100%;max-height:200px">
+      <label class="fl">Atau URL Gambar</label><input class="fi-a" id="im-img-url" placeholder="https://...">
     </div>
-    <!-- Video upload -->
     <div id="im-vid-wrap" style="display:none">
       <label class="fl">Upload Video</label>
-      <div class="upload-z">
-        <strong>🎬 Pilih Video</strong><p>MP4 / WebM</p>
-        <input type="file" accept="video/*" onchange="handleVideoUpload(this)">
-      </div>
-      <video id="prev-im-vid" controls style="width:100%;border-radius:9px;display:none;margin-bottom:10px;max-height:200px"></video>
+      <div class="upload-z"><strong>🎬 Pilih Video</strong><p>MP4/WebM</p><input type="file" accept="video/*" onchange="handleVideoUpload(this)"></div>
+      <video id="prev-im-vid" controls style="width:100%;border-radius:9px;display:none;margin-bottom:10px;max-height:220px"></video>
+      <label class="fl">Atau URL Video</label><input class="fi-a" id="im-vid-url" placeholder="https://...">
     </div>
-    <!-- Embed URL -->
     <div id="im-embed-wrap" style="display:none">
       <label class="fl">URL Embed</label>
-      <input class="fi-a" id="im-embed-url" placeholder="https://www.youtube.com/embed/... atau Google Drive embed URL">
-      <p style="font-size:.75rem;color:var(--txt-s);margin-top:-10px;margin-bottom:12px">
+      <input class="fi-a" id="im-embed-url" placeholder="https://www.youtube.com/embed/... atau Drive /preview">
+      <div style="background:var(--pale);border-radius:8px;padding:10px 14px;font-size:.76rem;color:#2E4E7A;margin-bottom:12px;margin-top:-10px">
         <b>YouTube:</b> Bagikan → Sematkan → salin src dari iframe<br>
-        <b>Google Drive:</b> File → Bagikan → Salin link → ubah /view ke /preview
-      </p>
+        <b>Google Drive:</b> ubah /view atau /edit → /preview<br>
+        <b>Google Slides:</b> File → Bagikan → Publikasikan → salin link embed
+      </div>
     </div>
-    <label class="fl">Thumbnail (opsional, untuk kartu)</label>
+    <label class="fl">Thumbnail kartu (opsional — jika kosong, gambar asli dipakai)</label>
     <input class="fi-a" id="im-thumb" placeholder="URL thumbnail...">
     <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px">
-      <button style="background:var(--pale);color:var(--txt-m);border:none;padding:10px 20px;border-radius:8px;font-family:inherit;font-weight:600;cursor:pointer" onclick="closeItemModal()">Batal</button>
+      <button style="background:var(--pale);color:#2E4E7A;border:none;padding:10px 20px;border-radius:8px;font-family:inherit;font-weight:600;cursor:pointer" onclick="closeItemModal()">Batal</button>
       <button class="btn-save" onclick="saveItem()">💾 Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- MENU MODAL -->
+<div id="menu-modal" onclick="if(event.target===this)closeMenuModal()">
+  <div class="menu-modal-box">
+    <h3 id="mm2-title">Tambah Menu</h3>
+    <input type="hidden" id="mm2-orig">
+    <label class="fl">Label Menu</label><input class="fi-a" id="mm2-label" placeholder="Nama menu yang tampil">
+    <label class="fl">Slug (URL — huruf kecil, pakai tanda -)</label>
+    <input class="fi-a" id="mm2-slug" placeholder="nama-menu">
+    <label class="fl">Induk Menu (untuk sub menu)</label>
+    <select class="fi-a" id="mm2-parent"><option value="">— Menu Utama (tidak ada induk) —</option></select>
+    <div style="display:flex;gap:10px;justify-content:flex-end">
+      <button style="background:var(--pale);color:#2E4E7A;border:none;padding:10px 20px;border-radius:8px;font-family:inherit;font-weight:600;cursor:pointer" onclick="closeMenuModal()">Batal</button>
+      <button class="btn-save" onclick="saveMenu()">💾 Simpan Menu</button>
     </div>
   </div>
 </div>
@@ -640,650 +557,674 @@ textarea.fi-a{min-height:90px;resize:vertical}
 <div class="adm-toast" id="adm-toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════════════════
-// SUPABASE CONFIG — Updated API Keys
-// ═══════════════════════════════════════════════════════════
-const SUPABASE_URL  = 'https://jrfgoxmttulvhggfhawn.supabase.co';
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpyZmdveG10dHVsdmhnZ2ZoYXduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0OTE3MzEsImV4cCI6MjA5NDA2NzczMX0.Cvxj0kdou4XlmRxq8Qe0Pax1CZOJBl_UVg7YaJdwu-0';
-const SUPABASE_PUB  = 'sb_publishable_g8nIybbhOW9y0_eIyNbWDw_QNWCg0qT';
-const LS_KEY        = 'eportotia_v3'; // localStorage key untuk offline fallback
+// ─────────────────────────────────────────────
+// SUPABASE
+// ─────────────────────────────────────────────
+const SB_URL='https://jrfgoxmttulvhggfhawn.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpyZmdveG10dHVsdmhnZ2ZoYXduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg0OTE3MzEsImV4cCI6MjA5NDA2NzczMX0.Cvxj0kdou4XlmRxq8Qe0Pax1CZOJBl_UVg7YaJdwu-0';
+const LS='eportotia_v4';
 
-// ── Supabase helper — NEVER throws, always returns null on fail ──
-async function sb(table, method='GET', body=null, query=''){
-  const url = `${SUPABASE_URL}/rest/v1/${table}${query}`;
-  const h = {
-    'apikey':        SUPABASE_ANON,
-    'Authorization': `Bearer ${SUPABASE_ANON}`,
-    'Content-Type':  'application/json',
-    'Accept':        'application/json'
-  };
+async function sb(table,method,body,query){
+  method=method||'GET';query=query||'';
+  const url=SB_URL+'/rest/v1/'+table+query;
+  const h={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Accept':'application/json'};
   if(method==='POST'||method==='PATCH') h['Prefer']='return=representation';
-  const opts = { method, headers:h };
-  if(body) opts.body = JSON.stringify(body);
-  try {
-    const res = await fetch(url, opts);
-    const text = await res.text();
-    if(!res.ok){ console.warn(`[Supabase ${method} ${table}]`, res.status, text); return null; }
-    try { return text ? JSON.parse(text) : null; } catch{ return null; }
-  } catch(e){
-    console.warn('[Supabase fetch error]', e.message);
-    return null;
-  }
+  const opts={method,headers:h};
+  if(body) opts.body=JSON.stringify(body);
+  try{const r=await fetch(url,opts);const t=await r.text();if(!r.ok){console.warn('SB',r.status,t);return null;}try{return t?JSON.parse(t):null;}catch{return null;}}
+  catch(e){console.warn('SB err',e.message);return null;}
 }
+function lsGet(k){try{return JSON.parse(localStorage.getItem(LS+'_'+k));}catch{return null;}}
+function lsSet(k,v){try{localStorage.setItem(LS+'_'+k,JSON.stringify(v));}catch{}}
 
-// ── LocalStorage helpers (fallback & offline support) ──
-function lsGet(key){ try{ return JSON.parse(localStorage.getItem(LS_KEY+'_'+key)); }catch{ return null; } }
-function lsSet(key,val){ try{ localStorage.setItem(LS_KEY+'_'+key, JSON.stringify(val)); }catch{} }
+// ─────────────────────────────────────────────
+// DEFAULT MENUS
+// ─────────────────────────────────────────────
+const DEF_MENUS=[
+  {slug:'halaman-muka',label:'Halaman Muka',parent:null,visible:true,order:0},
+  {slug:'profil',label:'Profil',parent:null,visible:true,order:1},
+  {slug:'profil/identitas',label:'Identitas',parent:'profil',visible:true,order:0},
+  {slug:'profil/keunikan-daerah',label:'Keunikan Daerah',parent:'profil',visible:true,order:1},
+  {slug:'profil/inspirasi-dan-tujuan',label:'Inspirasi dan Tujuan',parent:'profil',visible:true,order:2},
+  {slug:'artefak',label:'Artefak',parent:null,visible:true,order:2},
+  {slug:'artefak/siklus-1',label:'Siklus 1',parent:'artefak',visible:true,order:0},
+  {slug:'artefak/siklus-2',label:'Siklus 2',parent:'artefak',visible:true,order:1},
+  {slug:'artefak/siklus-3',label:'Siklus 3',parent:'artefak',visible:true,order:2},
+  {slug:'lampiran',label:'Lampiran',parent:null,visible:true,order:3},
+  {slug:'lampiran/penilaian-perangkat-pembelajaran',label:'Penilaian Perangkat Pembelajaran',parent:'lampiran',visible:true,order:0},
+  {slug:'lampiran/penilaian-praktik-mengajar',label:'Penilaian Praktik Mengajar',parent:'lampiran',visible:true,order:1},
+  {slug:'model-guru',label:'Model Guru',parent:null,visible:true,order:4}
+];
 
-// ═══════════════════════════════════════════════════════════
-// STATE — hardcoded defaults (login SELALU jalan)
-// ═══════════════════════════════════════════════════════════
-const DEFAULT_SETTINGS = {
-  admin_username: 'admin',
-  admin_password: 'tia2024',
-  navbar_logo:    'E-Portofolio Tia Kamalini',
-  footer_email:   'madetia92@gmail.com',
-  footer_phone:   '+62 878-2566-2597',
-  footer_text:    '© 2026 | E-Portofolio Tia Kamalini | PPG',
-  hero_title:     'E-Portofolio Tia Kamalini',
-  hero_subtitle:  'Pendidikan Profesi Guru (PPG) | Universitas Pendidikan Ganesha',
-  hero_image_url: '',
-  hero_bg_url:    ''
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+const DEF={
+  admin_username:'admin',admin_password:'tia2024',
+  navbar_logo:'E-Portofolio Tia Kamalini',
+  footer_email:'madetia92@gmail.com',footer_phone:'+62 878-2566-2597',
+  footer_text:'© 2026 | E-Portofolio Tia Kamalini | PPG',
+  hero_title:'E-Portofolio Tia Kamalini',
+  hero_subtitle:'Pendidikan Profesi Guru (PPG) | Universitas Pendidikan Ganesha',
+  hero_image_url:'',hero_bg_url:'',hero_height:'560px',hero_align:'center',
+  site_bg_color:'#F0F6FF',site_bg_image:'',
+  body_font:"'Plus Jakarta Sans',sans-serif",body_size:'16px',
+  body_color:'#0B2545',body_bold:false,body_italic:false,body_underline:false
 };
-// Merge localStorage TAPI jangan pernah override credentials dari localStorage
-// (mencegah bug dimana localStorage korup menyimpan credentials salah)
-const _lsSettings = lsGet('settings') || {};
-delete _lsSettings.admin_username;
-delete _lsSettings.admin_password;
-let settings = { ...DEFAULT_SETTINGS, ..._lsSettings };
-let pages      = lsGet('pages')      || {};
-let mediaItems = lsGet('media')      || {};
-let isAdmin    = false;
-let currentPage= 'halaman-muka';
-let _imSlug    = '', _imId = null;
-let supabaseOK = false; // track if Supabase is reachable
+const _ls=lsGet('settings')||{};
+delete _ls.admin_username;delete _ls.admin_password;
+let S={...DEF,..._ls};
+let pages=lsGet('pages')||{};
+let mediaItems=lsGet('media')||{};
+let menuCfg=lsGet('menus')||null;
+let isAdmin=false,curPage='halaman-muka';
+let _imSlug='',_imId=null,_mmMode='parent',_mmOrig='';
+let bodyBold=S.body_bold||false,bodyItalic=S.body_italic||false,bodyUnder=S.body_underline||false;
 
-// ═══════════════════════════════════════════════════════════
-// INIT — load dari Supabase, fallback ke localStorage
-// ═══════════════════════════════════════════════════════════
+function getMenus(){return menuCfg||DEF_MENUS;}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
 async function init(){
-  // 1. Load settings
-  const s = await sb('site_settings','GET',null,'?id=eq.main&select=*');
-  if(s && Array.isArray(s) && s[0]){
-    supabaseOK = true;
-    const row = s[0];
-    // Update credentials dari Supabase kalau valid
-    if(row.admin_username) settings.admin_username = row.admin_username;
-    if(row.admin_password) settings.admin_password = row.admin_password;
-    // Update settings lain
-    const skip = ['admin_username','admin_password','id','created_at','updated_at'];
-    Object.entries(row).forEach(([k,v])=>{
-      if(!skip.includes(k) && v!==null && v!==undefined && v!=='') settings[k]=v;
-    });
-    lsSet('settings', settings);
+  const s=await sb('site_settings','GET',null,'?id=eq.main&select=*');
+  if(s&&s[0]){
+    const row=s[0];
+    if(row.admin_username) S.admin_username=row.admin_username;
+    if(row.admin_password) S.admin_password=row.admin_password;
+    const skip=['admin_username','admin_password','id','created_at','updated_at'];
+    Object.entries(row).forEach(([k,v])=>{if(!skip.includes(k)&&v!==null&&v!==undefined&&v!=='')S[k]=v;});
+    bodyBold=S.body_bold||false;bodyItalic=S.body_italic||false;bodyUnder=S.body_underline||false;
+    lsSet('settings',S);
   }
-
-  // 2. Load pages
-  const ps = await sb('pages','GET',null,'?select=*&order=nav_order');
-  if(ps && Array.isArray(ps)){
-    supabaseOK = true;
-    pages = {};
-    ps.forEach(p=>{ pages[p.slug]=p; });
-    lsSet('pages', pages);
+  const ps=await sb('pages','GET',null,'?select=*&order=nav_order');
+  if(ps&&Array.isArray(ps)){pages={};ps.forEach(p=>{pages[p.slug]=p;});lsSet('pages',pages);}
+  const ms=await sb('media_items','GET',null,'?select=*&order=display_order');
+  if(ms&&Array.isArray(ms)){
+    mediaItems={};
+    ms.forEach(m=>{if(!mediaItems[m.page_slug])mediaItems[m.page_slug]=[];mediaItems[m.page_slug].push(m);});
+    lsSet('media',mediaItems);
   }
-
-  // 3. Load media
-  const ms = await sb('media_items','GET',null,'?select=*&order=display_order');
-  if(ms && Array.isArray(ms)){
-    mediaItems = {};
-    ms.forEach(m=>{
-      if(!mediaItems[m.page_slug]) mediaItems[m.page_slug]=[];
-      mediaItems[m.page_slug].push(m);
-    });
-    lsSet('media', mediaItems);
-  }
-
   applySettings();
-  navigate('halaman-muka');
+  renderNavbar();
+  navigate(location.hash.replace('#','')||'halaman-muka');
   hideLoading();
 }
 
-function hideLoading(){
-  const l=document.getElementById('loading');
-  l.classList.add('fade');
-  setTimeout(()=>l.style.display='none',500);
-}
+function hideLoading(){const l=document.getElementById('loading');l.classList.add('fade');setTimeout(()=>l.style.display='none',500);}
 
 function applySettings(){
-  const s = settings;
-  if(s.navbar_logo) document.getElementById('nav-logo-text').innerHTML = s.navbar_logo.replace('Tia Kamalini','<span>Tia Kamalini</span>');
-  if(s.footer_text) document.getElementById('footer-text').textContent = s.footer_text;
-  if(s.footer_email) document.getElementById('footer-email').textContent = s.footer_email;
-  if(s.footer_phone) document.getElementById('footer-phone').textContent = s.footer_phone;
+  // Navbar logo
+  const logo=document.getElementById('nav-logo-text');
+  if(logo) logo.innerHTML=(S.navbar_logo||'E-Portofolio Tia Kamalini').replace('Tia Kamalini','<span>Tia Kamalini</span>');
+  // Footer
+  const ft=document.getElementById('footer-text');if(ft) ft.textContent=S.footer_text||'';
+  const fe=document.getElementById('footer-email');if(fe) fe.textContent=S.footer_email||'';
+  const fp=document.getElementById('footer-phone');if(fp) fp.textContent=S.footer_phone||'';
+  // Background
+  if(S.site_bg_image){
+    document.body.style.background="url('"+S.site_bg_image+"') center/cover fixed";
+  } else {
+    document.body.style.background=S.site_bg_color||'#F0F6FF';
+  }
+  // Typography
+  document.body.style.fontFamily=S.body_font||"'Plus Jakarta Sans',sans-serif";
+  document.body.style.fontSize=S.body_size||'16px';
+  document.body.style.color=S.body_color||'#0B2545';
+  document.body.style.fontWeight=bodyBold?'700':'400';
+  document.body.style.fontStyle=bodyItalic?'italic':'normal';
+  document.body.style.textDecoration=bodyUnder?'underline':'none';
 }
 
-// ═══════════════════════════════════════════════════════════
+// ─────────────────────────────────────────────
+// NAVBAR
+// ─────────────────────────────────────────────
+function renderNavbar(){
+  const menus=getMenus();
+  const parents=menus.filter(m=>!m.parent&&m.visible).sort((a,b)=>a.order-b.order);
+  let html='',mhtml='';
+  parents.forEach(p=>{
+    const ch=menus.filter(m=>m.parent===p.slug&&m.visible).sort((a,b)=>a.order-b.order);
+    if(ch.length){
+      html+=`<div class="nav-item"><button class="nav-link" id="nav-${p.slug}">${p.label} <span class="arrow">▾</span></button><div class="nav-dropdown"><div class="nav-dropdown-box">${ch.map(c=>`<a class="nav-dd-link" onclick="navigate('${c.slug}')">${c.label}</a>`).join('')}</div></div></div>`;
+      mhtml+=`<a class="mobile-nav-link">${p.label}</a><div class="mobile-nav-sub">${ch.map(c=>`<a class="mobile-nav-link" onclick="navigate('${c.slug}');toggleMobile()">${c.label}</a>`).join('')}</div>`;
+    } else {
+      html+=`<div class="nav-item"><button class="nav-link" id="nav-${p.slug}" onclick="navigate('${p.slug}')">${p.label}</button></div>`;
+      mhtml+=`<a class="mobile-nav-link" onclick="navigate('${p.slug}');toggleMobile()">${p.label}</a>`;
+    }
+  });
+  document.getElementById('nav-menu').innerHTML=html;
+  document.getElementById('mobile-nav').innerHTML=mhtml;
+  initDropdowns();
+}
+
+function initDropdowns(){
+  document.querySelectorAll('.nav-item').forEach(item=>{
+    if(!item.querySelector('.nav-dropdown')) return;
+    let t=null;
+    item.addEventListener('mouseenter',()=>{clearTimeout(t);document.querySelectorAll('.nav-item.dd-open').forEach(o=>{if(o!==item)o.classList.remove('dd-open');});item.classList.add('dd-open');});
+    item.addEventListener('mouseleave',()=>{t=setTimeout(()=>item.classList.remove('dd-open'),120);});
+  });
+}
+
+// ─────────────────────────────────────────────
 // NAVIGATION
-// ═══════════════════════════════════════════════════════════
+// ─────────────────────────────────────────────
 function navigate(slug){
-  currentPage = slug;
-  // Mark active nav
+  curPage=slug;
   document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
-  const root = slug.split('/')[0];
-  const navEl = document.getElementById('nav-'+root.replace('-','_')||'nav-'+root);
-  if(navEl) navEl.classList.add('active');
-  // Render page
+  const root=slug.split('/')[0];
+  const el=document.getElementById('nav-'+root)||document.getElementById('nav-'+slug);
+  if(el) el.classList.add('active');
   renderPage(slug);
   window.scrollTo({top:0,behavior:'smooth'});
-  // Hash
   history.pushState(null,'','#'+slug);
 }
+window.addEventListener('popstate',()=>navigate(location.hash.replace('#','')||'halaman-muka'));
 
-window.addEventListener('popstate',()=>{
-  const hash = location.hash.replace('#','') || 'halaman-muka';
-  navigate(hash);
-});
-
-// ═══════════════════════════════════════════════════════════
-// PAGE RENDERER
-// ═══════════════════════════════════════════════════════════
+// ─────────────────────────────────────────────
+// PAGE RENDERERS
+// ─────────────────────────────────────────────
 function renderPage(slug){
-  const app = document.getElementById('app');
-  const page = pages[slug];
-  const items = mediaItems[slug] || [];
-  const content = page?.content || [];
-
-  let html = '';
-
-  if(slug === 'halaman-muka'){
-    html = renderHalamanMuka(content);
-  } else if(slug.startsWith('artefak')){
-    html = renderArtefak(slug, page, items);
-  } else {
-    html = renderContentPage(slug, page, items);
-  }
-
-  app.innerHTML = html;
-  addViewListeners();
+  const app=document.getElementById('app');
+  const page=pages[slug];
+  const items=(mediaItems[slug]||[]).filter(i=>i.is_visible!==false);
+  if(slug==='halaman-muka') app.innerHTML=renderHMuka(page?.content||[]);
+  else if(slug.startsWith('artefak')&&slug!=='artefak') app.innerHTML=renderArtefak(slug,page,items);
+  else app.innerHTML=renderContent(slug,page,items);
 }
 
-function renderHalamanMuka(content){
-  const s = settings;
-  const hero = content.find(c=>c.type==='hero') || {};
-  const lptk = content.find(c=>c.type==='section'&&c.title?.includes('LPTK')) || {};
-  const ppl = content.find(c=>c.type==='section'&&c.title?.includes('PPL')) || {};
-  const avatarUrl = s.hero_image_url || '';
-  const bgUrl = s.hero_bg_url || '';
+function renderHMuka(content){
+  const hero=content.find(c=>c.type==='hero')||{};
+  const lptk=content.find(c=>c.type==='section'&&(c.title||'').includes('LPTK'))||{};
+  const ppl=content.find(c=>c.type==='section'&&(c.title||'').includes('PPL'))||{};
+  const bgUrl=S.hero_bg_url||'';
+  const height=S.hero_height||'560px';
+  const align=S.hero_align||'center';
+  const txtAlign=align==='flex-start'?'left':align==='flex-end'?'right':'center';
+  const title=(hero.title||S.hero_title||'E-Portofolio Tia Kamalini').replace('Tia Kamalini','<em>Tia Kamalini</em>');
+
+  // Hero: no blue overlay when image exists
+  const heroBg=bgUrl
+    ?`<div class="hero-media"><img src="${bgUrl}" alt="banner"></div>`
+    :`<div style="position:absolute;inset:0;background:linear-gradient(135deg,#0B2545,#134074,#1a4d8a)"></div>`;
 
   return `
-  <div class="hero-section">
-    <div class="hero-bg-img" style="background-image:url('${bgUrl}')"></div>
-    <div class="hero-shapes"></div>
-    <div class="hero-inner">
-      ${avatarUrl
-        ? `<img src="${avatarUrl}" class="hero-avatar" style="object-fit:cover" alt="Foto Tia">`
-        : `<div class="hero-avatar">👩‍🏫</div>`}
-      <div class="hero-badge">IT Specialist – Gacorrr Kang Profesi Guru</div>
-      <h1>${(hero.title||s.hero_title||'E-Portofolio <em>Tia Kamalini</em>').replace('Tia Kamalini','<em>Tia Kamalini</em>')}</h1>
-      <p>${hero.subtitle||s.hero_subtitle||'Pendidikan Profesi Guru (PPG) | Universitas Pendidikan Ganesha'}</p>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+  <div class="hero-section" style="min-height:${height};justify-content:${align}">
+    ${heroBg}
+    <div class="hero-inner" style="text-align:${txtAlign}">
+      ${S.hero_image_url?`<div class="hero-avatar-wrap"><img src="${S.hero_image_url}" class="hero-avatar" alt="Foto"></div>`:`<div class="hero-avatar-wrap"><div class="hero-avatar-ph">👩‍🏫</div></div>`}
+      <div class="hero-badge">PPG – Pendidikan Profesi Guru</div>
+      <h1>${title}</h1>
+      <p>${hero.subtitle||S.hero_subtitle||'Pendidikan Profesi Guru (PPG) | Universitas Pendidikan Ganesha'}</p>
+      <div style="display:flex;gap:12px;justify-content:${txtAlign==='left'?'flex-start':txtAlign==='right'?'flex-end':'center'};flex-wrap:wrap">
         <button onclick="navigate('profil/identitas')" style="background:var(--sky);color:var(--navy);border:none;padding:11px 24px;border-radius:9px;font-weight:700;font-size:.9rem;cursor:pointer;font-family:inherit">Lihat Profil →</button>
-        <button onclick="navigate('artefak/siklus-1')" style="background:rgba(255,255,255,.12);color:#fff;border:2px solid rgba(255,255,255,.3);padding:11px 24px;border-radius:9px;font-weight:700;font-size:.9rem;cursor:pointer;font-family:inherit">Jelajahi Artefak</button>
+        <button onclick="navigate('artefak/siklus-1')" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4);padding:11px 24px;border-radius:9px;font-weight:700;font-size:.9rem;cursor:pointer;font-family:inherit">Jelajahi Artefak</button>
       </div>
     </div>
   </div>
-
   <div class="location-grid">
     <div class="location-card">
-      ${lptk.map_url ? `<iframe class="location-map" src="${lptk.map_url}" allowfullscreen loading="lazy"></iframe>` : `<div class="location-map" style="background:var(--pale);display:flex;align-items:center;justify-content:center;color:var(--txt-s);font-size:.85rem">Peta belum diatur</div>`}
-      <div class="location-body">
-        <h3>${lptk.title||'Kampus LPTK'}</h3>
-        <p>${lptk.text||'Universitas Pendidikan Ganesha (Undiksha) adalah perguruan tinggi negeri di Singaraja, Bali, yang berfokus pada kependidikan dan non-kependidikan.'}</p>
-      </div>
+      ${lptk.map_url?`<iframe class="location-map" src="${lptk.map_url}" allowfullscreen loading="lazy"></iframe>`:`<div class="location-map" style="background:var(--pale);display:flex;align-items:center;justify-content:center;color:var(--txt-s)">Peta belum diatur</div>`}
+      <div class="location-body"><h3>${lptk.title||'Kampus LPTK'}</h3><p>${lptk.text||'Universitas Pendidikan Ganesha, Singaraja, Bali.'}</p></div>
     </div>
     <div class="location-card">
-      ${ppl.map_url ? `<iframe class="location-map" src="${ppl.map_url}" allowfullscreen loading="lazy"></iframe>` : `<div class="location-map" style="background:var(--pale);display:flex;align-items:center;justify-content:center;color:var(--txt-s);font-size:.85rem">Peta belum diatur</div>`}
-      <div class="location-body">
-        <h3>${ppl.title||'Sekolah PPL'}</h3>
-        <p>${ppl.text||'SD Negeri 1 Baktiseraga adalah satuan pendidikan dasar negeri yang berlokasi di Jl. Laksamana, Baktiseraga, Kecamatan Buleleng, Kabupaten Buleleng, Bali.'}</p>
-      </div>
+      ${ppl.map_url?`<iframe class="location-map" src="${ppl.map_url}" allowfullscreen loading="lazy"></iframe>`:`<div class="location-map" style="background:var(--pale);display:flex;align-items:center;justify-content:center;color:var(--txt-s)">Peta belum diatur</div>`}
+      <div class="location-body"><h3>${ppl.title||'Sekolah PPL'}</h3><p>${ppl.text||'SD Negeri 1 Baktiseraga, Buleleng, Bali.'}</p></div>
     </div>
   </div>
-
   <div class="menu-cards-section">
     <h2>Jelajahi Portofolio</h2>
     <div class="section-divider"></div>
     <div class="shortcut-grid">
-      <div class="shortcut-card" onclick="navigate('profil/identitas')">
-        <span class="sc-icon">👤</span>
-        <h4>Profil</h4>
-        <p>Identitas, keunikan daerah, dan inspirasi serta tujuan</p>
-      </div>
-      <div class="shortcut-card" onclick="navigate('artefak/siklus-1')">
-        <span class="sc-icon">📚</span>
-        <h4>Artefak</h4>
-        <p>Siklus 1, 2, dan 3 pembelajaran PPG</p>
-      </div>
-      <div class="shortcut-card" onclick="navigate('lampiran/penilaian-perangkat-pembelajaran')">
-        <span class="sc-icon">📎</span>
-        <h4>Lampiran</h4>
-        <p>Penilaian perangkat & praktik mengajar</p>
-      </div>
-      <div class="shortcut-card" onclick="navigate('model-guru')">
-        <span class="sc-icon">🏫</span>
-        <h4>Model Guru</h4>
-        <p>Dokumentasi model pembelajaran</p>
-      </div>
+      <div class="shortcut-card" onclick="navigate('profil/identitas')"><span class="sc-icon">👤</span><h4>Profil</h4><p>Identitas, keunikan daerah, dan inspirasi</p></div>
+      <div class="shortcut-card" onclick="navigate('artefak/siklus-1')"><span class="sc-icon">📚</span><h4>Artefak</h4><p>Siklus 1, 2, dan 3 pembelajaran PPG</p></div>
+      <div class="shortcut-card" onclick="navigate('lampiran/penilaian-perangkat-pembelajaran')"><span class="sc-icon">📎</span><h4>Lampiran</h4><p>Penilaian perangkat & praktik mengajar</p></div>
+      <div class="shortcut-card" onclick="navigate('model-guru')"><span class="sc-icon">🏫</span><h4>Model Guru</h4><p>Dokumentasi model pembelajaran</p></div>
     </div>
   </div>`;
 }
 
-function renderArtefak(slug, page, items){
-  const siklus = ['artefak/siklus-1','artefak/siklus-2','artefak/siklus-3'];
-  const titles = {
-    'artefak/siklus-1':'Siklus 1',
-    'artefak/siklus-2':'Siklus 2',
-    'artefak/siklus-3':'Siklus 3'
-  };
-  const tabs = siklus.map(s=>`<button class="artefak-tab${slug===s?' active':''}" onclick="navigate('${s}')">${titles[s]}</button>`).join('');
-  return `
-  <div class="content-page-wrap">
-    <div class="page-header">
-      <div class="tag">Artefak Pembelajaran</div>
-      <h1>${page?.title||titles[slug]||'Artefak'}</h1>
-      <div class="divider"></div>
-    </div>
+function renderArtefak(slug,page,items){
+  const menus=getMenus();
+  const siklus=menus.filter(m=>m.parent==='artefak'&&m.visible).sort((a,b)=>a.order-b.order);
+  const tabs=siklus.map(s=>`<button class="artefak-tab${slug===s.slug?' active':''}" onclick="navigate('${s.slug}')">${s.label}</button>`).join('');
+  return `<div class="content-page-wrap">
+    <div class="page-header"><div class="tag">Artefak Pembelajaran</div><h1>${page?.title||slug.split('/').pop()}</h1><div class="divider"></div></div>
     <div class="artefak-tabs">${tabs}</div>
-    ${renderMediaGrid(items, slug)}
+    ${renderMediaGrid(items,slug)}
   </div>`;
 }
 
-function renderContentPage(slug, page, items){
-  const tagMap = {
-    'profil':'Profil Guru','profil/identitas':'Identitas','profil/keunikan-daerah':'Keunikan Daerah',
-    'profil/inspirasi-dan-tujuan':'Inspirasi & Tujuan','lampiran':'Lampiran',
-    'lampiran/penilaian-perangkat-pembelajaran':'Lampiran','lampiran/penilaian-praktik-mengajar':'Lampiran',
-    'model-guru':'Model Guru'
-  };
-  return `
-  <div class="content-page-wrap">
-    <div class="page-header">
-      <div class="tag">${tagMap[slug]||'Halaman'}</div>
-      <h1>${page?.title||slug}</h1>
-      <div class="divider"></div>
-    </div>
-    ${renderContentBlocks(page?.content||[])}
-    ${renderMediaGrid(items, slug)}
+function renderContent(slug,page,items){
+  const menus=getMenus();
+  const m=menus.find(x=>x.slug===slug);
+  const parentLabel=m?.parent?menus.find(x=>x.slug===m.parent)?.label||'Halaman':'Halaman';
+  return `<div class="content-page-wrap">
+    <div class="page-header"><div class="tag">${parentLabel}</div><h1>${page?.title||m?.label||slug}</h1><div class="divider"></div></div>
+    ${(page?.content||[]).filter(b=>b.type==='text').map(b=>`<div style="margin-bottom:24px">${b.title?`<h2 style="font-size:1.4rem;color:var(--navy);margin-bottom:10px;font-family:'Playfair Display',serif">${b.title}</h2>`:''}<p style="color:#2E4E7A;line-height:1.8;white-space:pre-wrap">${b.text||''}</p></div>`).join('')}
+    ${renderMediaGrid(items,slug)}
   </div>`;
 }
 
-function renderContentBlocks(blocks){
-  if(!blocks||!blocks.length) return '';
-  return blocks.map(b=>{
-    if(b.type==='text') return `<div class="block block-text">${b.title?`<h2>${b.title}</h2>`:''}${b.text?`<p class="block-text-body">${b.text}</p>`:''}</div>`;
-    return '';
-  }).join('');
-}
+// ─────────────────────────────────────────────
+// MEDIA GRID — full preview, no crop
+// ─────────────────────────────────────────────
+const ICONS={image:'🖼',video:'🎬',youtube:'▶️','drive-doc':'📄','drive-sheet':'📊',slide:'📑',link:'🔗',text:'📝'};
+const LABELS={image:'Gambar',video:'Video',youtube:'YouTube','drive-doc':'Dokumen','drive-sheet':'Sheet',slide:'Slides',link:'Link',text:'Teks'};
 
-function renderMediaGrid(items, slug){
+function renderMediaGrid(items,slug){
   if(!items||!items.length) return `<div class="empty-state"><span>📂</span>Belum ada konten. Tambahkan melalui panel admin.</div>`;
-  const ICONS = {image:'🖼',video:'🎬',youtube:'▶️','drive-doc':'📄','drive-sheet':'📊',slide:'📑',link:'🔗',text:'📝'};
-  return `<div class="media-grid">${items.map(item=>`
-    <div class="media-card">
-      <div class="media-thumb">
-        ${item.thumbnail_url?`<img src="${item.thumbnail_url}" onerror="this.style.display='none'">`:''}
-        <span>${ICONS[item.media_type]||'📄'}</span>
-        <span class="type-chip">${item.media_type}</span>
+  return `<div class="media-grid">${items.map(item=>{
+    let previewHtml='';
+    const imgSrc=item.thumbnail_url||item.media_url||'';
+    if(item.media_type==='image'&&imgSrc){
+      previewHtml=`<img src="${imgSrc}" alt="${item.title}" loading="lazy">`;
+    } else if(item.media_type==='video'&&item.media_url){
+      previewHtml=`<video preload="metadata"><source src="${item.media_url}"></video>`;
+    } else if(item.media_type==='youtube'&&item.media_url){
+      previewHtml=`<iframe src="${item.media_url}" allowfullscreen loading="lazy"></iframe>`;
+    } else if(item.thumbnail_url){
+      previewHtml=`<img src="${item.thumbnail_url}" alt="${item.title}" loading="lazy">`;
+    } else {
+      previewHtml=`<div class="embed-ph"><span>${ICONS[item.media_type]||'📄'}</span><p>${LABELS[item.media_type]||item.media_type}</p></div>`;
+    }
+    return `<div class="media-card" onclick="openMediaModal('${item.id}','${slug}')">
+      <div class="media-preview">
+        ${previewHtml}
+        <span class="type-chip">${LABELS[item.media_type]||item.media_type}</span>
       </div>
       <div class="media-body">
         <h4>${item.title}</h4>
-        <p>${(item.description||'').substring(0,100)}${item.description?.length>100?'...':''}</p>
-        <button class="btn-view" onclick="openMediaModal('${item.id}','${slug}')">👁 Lihat Detail</button>
+        ${item.description?`<p>${item.description.substring(0,130)}${item.description.length>130?'...':''}</p>`:''}
+        <button class="btn-view" onclick="event.stopPropagation();openMediaModal('${item.id}','${slug}')">👁 Lihat Penuh</button>
       </div>
-    </div>`).join('')}</div>`;
+    </div>`;
+  }).join('')}</div>`;
 }
 
-function addViewListeners(){}
-
-// ═══════════════════════════════════════════════════════════
-// MEDIA MODAL
-// ═══════════════════════════════════════════════════════════
-function openMediaModal(id, slug){
-  const items = mediaItems[slug]||[];
-  const item = items.find(i=>i.id===id);
+// ─────────────────────────────────────────────
+// LIGHTBOX — full natural size
+// ─────────────────────────────────────────────
+function openMediaModal(id,slug){
+  const items=mediaItems[slug]||[];
+  const item=items.find(i=>i.id===id);
   if(!item) return;
-  document.getElementById('mm-title').textContent = item.title;
-  let body = '';
-  if(item.thumbnail_url) body += `<img src="${item.thumbnail_url}" alt="${item.title}">`;
-  if(item.description) body += `<p class="modal-desc" style="margin-bottom:16px;white-space:pre-wrap">${item.description}</p>`;
+  document.getElementById('mm-title').textContent=item.title;
+  let body='';
+  if(item.description) body+=`<p class="modal-desc" style="margin-bottom:18px">${item.description}</p>`;
   switch(item.media_type){
     case 'image':
-      if(item.media_url&&!item.thumbnail_url) body = `<img src="${item.media_url}" alt="${item.title}">` + body;
-      else if(item.media_url) body += `<img src="${item.media_url}" alt="${item.title}" style="margin-top:12px">`;
-      break;
+      const s=item.media_url||item.thumbnail_url||'';
+      if(s) body=`<img src="${s}" alt="${item.title}">`+body; break;
     case 'video':
-      body = `<video controls style="width:100%;border-radius:10px;margin-bottom:14px"><source src="${item.media_url}"></video>` + body; break;
-    case 'youtube':
-    case 'drive-doc':
-    case 'drive-sheet':
-    case 'slide':
-      if(item.media_url) body += `<iframe src="${item.media_url}" style="width:100%;height:440px;border:none;border-radius:10px" allowfullscreen></iframe>`; break;
+      body=`<video controls><source src="${item.media_url}"></video>`+body; break;
+    case 'youtube':case 'drive-doc':case 'drive-sheet':case 'slide':
+      if(item.media_url) body+=`<iframe src="${item.media_url}" style="min-height:520px" allowfullscreen></iframe>`; break;
     case 'link':
-      if(item.media_url) body += `<a href="${item.media_url}" target="_blank" style="display:inline-block;background:var(--navy);color:#fff;padding:11px 22px;border-radius:9px;font-weight:700;font-size:.88rem;margin-top:8px">🔗 Buka Link</a>`; break;
+      if(item.media_url) body+=`<a href="${item.media_url}" target="_blank" style="display:inline-block;background:var(--navy);color:#fff;padding:12px 24px;border-radius:9px;font-weight:700;font-size:.9rem;margin-top:8px">🔗 Buka Link</a>`; break;
   }
-  document.getElementById('mm-body').innerHTML = body||'<p style="color:var(--txt-s)">Tidak ada konten tambahan.</p>';
+  document.getElementById('mm-body').innerHTML=body||'<p style="color:var(--txt-s)">Tidak ada konten.</p>';
   document.getElementById('media-modal').classList.add('open');
 }
-function closeMediaModal(){ document.getElementById('media-modal').classList.remove('open'); }
+function closeMediaModal(){document.getElementById('media-modal').classList.remove('open');}
 
-// ═══════════════════════════════════════════════════════════
+// ─────────────────────────────────────────────
 // AUTH
-// ═══════════════════════════════════════════════════════════
-function openLoginModal(){ document.getElementById('login-modal').classList.add('open'); }
-function closeLoginModal(){ document.getElementById('login-modal').classList.remove('open'); document.getElementById('login-err').style.display='none'; }
-
+// ─────────────────────────────────────────────
+function openLoginModal(){document.getElementById('login-modal').classList.add('open');}
+function closeLoginModal(){document.getElementById('login-modal').classList.remove('open');document.getElementById('login-err').style.display='none';}
 function doLogin(){
-  const u = document.getElementById('li-user').value.trim();
-  const p = document.getElementById('li-pass').value.trim();
-
-  // Ultimate fallback — hardcoded, tidak bisa diubah oleh localStorage atau Supabase yang korup
-  const HARD_USER = 'admin';
-  const HARD_PASS = 'tia2024';
-  const validUser = settings.admin_username || HARD_USER;
-  const validPass = settings.admin_password || HARD_PASS;
-
-  const ok = (u === validUser && p === validPass) || (u === HARD_USER && p === HARD_PASS);
-
-  if(ok){
-    isAdmin = true;
-    closeLoginModal();
-    openAdmin();
+  const u=document.getElementById('li-user').value.trim();
+  const p=document.getElementById('li-pass').value.trim();
+  if((u===S.admin_username&&p===S.admin_password)||(u==='admin'&&p==='tia2024')){
+    isAdmin=true;closeLoginModal();openAdmin();
   } else {
-    const errEl = document.getElementById('login-err');
-    errEl.textContent = `Username atau password salah!`;
-    errEl.style.display = 'block';
+    document.getElementById('login-err').style.display='block';
   }
 }
-document.getElementById('li-pass').addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
+document.getElementById('li-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+function doLogout(){isAdmin=false;closeAdmin();toast('Berhasil keluar.');}
+function openAdmin(){populateAdminForms();renderAdminPageNav();document.getElementById('admin').classList.add('open');}
+function closeAdmin(){document.getElementById('admin').classList.remove('open');}
 
-function doLogout(){ isAdmin=false; closeAdmin(); toast('Berhasil keluar.'); }
-function openAdmin(){ populateAdminForms(); document.getElementById('admin').classList.add('open'); }
-function closeAdmin(){ document.getElementById('admin').classList.remove('open'); }
-
-// ═══════════════════════════════════════════════════════════
-// ADMIN SECTIONS
-// ═══════════════════════════════════════════════════════════
-function showAdmSection(id, el){
+// ─────────────────────────────────────────────
+// ADMIN SECTION SWITCH
+// ─────────────────────────────────────────────
+function showAdmSection(id,el){
   document.querySelectorAll('.adm-section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.adm-nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  el.classList.add('active');
-  // Load page content manager if applicable
-  const slugMap={
-    'adm-profil-identitas':'profil/identitas',
-    'adm-profil-keunikan':'profil/keunikan-daerah',
-    'adm-profil-inspirasi':'profil/inspirasi-dan-tujuan',
-    'adm-artefak-1':'artefak/siklus-1',
-    'adm-artefak-2':'artefak/siklus-2',
-    'adm-artefak-3':'artefak/siklus-3',
-    'adm-lamp-perangkat':'lampiran/penilaian-perangkat-pembelajaran',
-    'adm-lamp-praktik':'lampiran/penilaian-praktik-mengajar',
-    'adm-model-guru':'model-guru'
-  };
-  if(slugMap[id]) renderPageContentAdmin(slugMap[id]);
+  const sec=document.getElementById(id);if(sec) sec.classList.add('active');
+  if(el) el.classList.add('active');
+  if(id.startsWith('adm-pg-')) renderPageContentAdmin(id.replace('adm-pg-','').replace(/---/g,'/'));
+  if(id==='adm-menus') renderMenuAdmin();
+  if(id==='adm-design') populateDesignForms();
+  if(id==='adm-typo') populateTypoForms();
+  if(id==='adm-hero') populateHeroForm();
+}
+
+function renderAdminPageNav(){
+  const menus=getMenus();
+  let navHtml='',sectHtml='';
+  menus.forEach(m=>{
+    if(m.slug==='halaman-muka') return;
+    const id='adm-pg-'+m.slug.replace(/\//g,'---');
+    navHtml+=`<div class="adm-nav-item" onclick="showAdmSection('${id}',this)">${m.parent?'&nbsp;&nbsp;└ ':''} ${m.label}</div>`;
+    sectHtml+=`<div class="adm-section" id="${id}"><div class="adm-card"><h3>📋 ${m.label}</h3></div><div id="ctn-${m.slug.replace(/\//g,'---')}"></div></div>`;
+  });
+  document.getElementById('adm-page-nav').innerHTML=navHtml;
+  document.getElementById('adm-page-sections').innerHTML=sectHtml;
 }
 
 function renderPageContentAdmin(slug){
-  const cont = document.getElementById('content-'+slug);
-  if(!cont) return;
-  const items = mediaItems[slug]||[];
-  cont.innerHTML = `
-    <div class="adm-card" style="margin-top:16px">
-      <h3 style="font-size:1rem">📋 Media & Konten <span style="font-size:.75rem;color:var(--txt-s);font-family:inherit;font-weight:400">(${items.length} item)</span></h3>
-      <button class="btn-add" onclick="openItemModal('${slug}')">+ Tambah Konten</button>
-      <div class="items-list" id="list-${slug.replace(/\//g,'-')}">
-        ${items.map(item=>`
-          <div class="item-row">
-            <div class="item-row-info">
-              <strong>${item.title}</strong>
-              <span>${item.media_type} • ${(item.description||'').substring(0,60)}</span>
-            </div>
-            <div class="item-row-btns">
-              <button class="btn-e btn-e-edit" onclick="openItemModal('${slug}','${item.id}')">✏ Edit</button>
-              <button class="btn-e btn-e-del" onclick="deleteItem('${item.id}','${slug}')">🗑</button>
-            </div>
-          </div>`).join('') || '<div style="color:var(--txt-s);font-size:.83rem">Belum ada item.</div>'}
-      </div>
-    </div>`;
+  const el=document.getElementById('ctn-'+slug.replace(/\//g,'---'));
+  if(!el) return;
+  const items=mediaItems[slug]||[];
+  el.innerHTML=`<div class="adm-card" style="margin-top:16px">
+    <h3 style="font-size:1rem">📋 Konten (${items.length} item)</h3>
+    <button class="btn-add" onclick="openItemModal('${slug}')">+ Tambah Konten</button>
+    <div class="items-list">
+      ${items.map(item=>`<div class="item-row">
+        <div class="item-row-info">
+          <strong>${item.title}</strong>
+          <span>${LABELS[item.media_type]||item.media_type} • ${(item.description||'').substring(0,50)}</span>
+        </div>
+        <div class="item-row-btns">
+          <button class="btn-e btn-e-hide" onclick="toggleVisible('${item.id}','${slug}')">${item.is_visible===false?'👁':'🙈'}</button>
+          <button class="btn-e btn-e-edit" onclick="openItemModal('${slug}','${item.id}')">✏</button>
+          <button class="btn-e btn-e-del" onclick="delItem('${item.id}','${slug}')">🗑</button>
+        </div>
+      </div>`).join('')||'<div style="color:var(--txt-s);font-size:.83rem">Belum ada item.</div>'}
+    </div>
+  </div>`;
 }
 
+// ─────────────────────────────────────────────
+// POPULATE FORMS
+// ─────────────────────────────────────────────
 function populateAdminForms(){
-  const s=settings;
-  setV('s-logo',s.navbar_logo); setV('s-email',s.footer_email); setV('s-phone',s.footer_phone);
-  setV('s-footer',s.footer_text); setV('s-avatar-url',s.hero_image_url||'');
-  if(s.hero_image_url){ showPrev('prev-s-avatar',s.hero_image_url); }
-  // Halaman muka
-  const hm = pages['halaman-muka'];
-  const c = hm?.content||[];
-  setV('hm-title',settings.hero_title||''); setV('hm-sub',settings.hero_subtitle||'');
-  setV('hm-bg-url',settings.hero_bg_url||'');
-  if(settings.hero_bg_url) showPrev('prev-hm-bg',settings.hero_bg_url);
-  const lptk=c.find(x=>x.type==='section'&&x.title?.includes('LPTK'))||{};
-  const ppl=c.find(x=>x.type==='section'&&x.title?.includes('PPL'))||{};
-  setV('hm-lptk-name',lptk.title||'Kampus LPTK'); setV('hm-lptk-desc',lptk.text||''); setV('hm-lptk-map',lptk.map_url||'');
-  setV('hm-ppl-name',ppl.title||'Sekolah PPL'); setV('hm-ppl-desc',ppl.text||''); setV('hm-ppl-map',ppl.map_url||'');
+  setV('s-logo',S.navbar_logo);setV('s-email',S.footer_email);setV('s-phone',S.footer_phone);setV('s-footer',S.footer_text);setV('s-avatar-url',S.hero_image_url||'');
+  if(S.hero_image_url) showPrev('prev-s-avatar',S.hero_image_url);
+}
+function populateDesignForms(){
+  const c=S.site_bg_color||'#F0F6FF';
+  setV('d-bg-color-hex',c);
+  try{document.getElementById('d-bg-color').value=c;}catch{}
+  setV('d-bg-img-url',S.site_bg_image||'');
+  if(S.site_bg_image) showPrev('prev-site-bg',S.site_bg_image);
+}
+function populateTypoForms(){
+  const fs=document.getElementById('d-font');
+  if(fs){for(let o of fs.options){if(o.value===S.body_font){o.selected=true;break;}}}
+  setV('d-font-size',S.body_size||'16px');
+  const tc=S.body_color||'#0B2545';
+  try{document.getElementById('d-txt-color').value=tc;}catch{}
+  setV('d-txt-hex',tc);
+  document.getElementById('fb-bold').classList.toggle('active',bodyBold);
+  document.getElementById('fb-italic').classList.toggle('active',bodyItalic);
+  document.getElementById('fb-underline').classList.toggle('active',bodyUnder);
+  previewFont();
+}
+function populateHeroForm(){
+  setV('hm-title',S.hero_title||'');setV('hm-sub',S.hero_subtitle||'');setV('hm-bg-url',S.hero_bg_url||'');
+  if(S.hero_bg_url) showPrev('prev-hm-bg',S.hero_bg_url);
+  const hs=document.getElementById('hm-height');if(hs) hs.value=S.hero_height||'560px';
+  const ha=document.getElementById('hm-align');if(ha) ha.value=S.hero_align||'center';
+  const c=pages['halaman-muka']?.content||[];
+  const lptk=c.find(x=>x.type==='section'&&(x.title||'').includes('LPTK'))||{};
+  const ppl=c.find(x=>x.type==='section'&&(x.title||'').includes('PPL'))||{};
+  setV('hm-lptk-name',lptk.title||'Kampus LPTK');setV('hm-lptk-desc',lptk.text||'');setV('hm-lptk-map',lptk.map_url||'');
+  setV('hm-ppl-name',ppl.title||'Sekolah PPL');setV('hm-ppl-desc',ppl.text||'');setV('hm-ppl-map',ppl.map_url||'');
 }
 
-// ═══════════════════════════════════════════════════════════
-// SAVE FUNCTIONS — localStorage dulu, Supabase kalau tersedia
-// ═══════════════════════════════════════════════════════════
+// ─────────────────────────────────────────────
+// DESIGN FUNCTIONS
+// ─────────────────────────────────────────────
+function syncColorPicker(pickerId,hexVal){try{document.getElementById(pickerId).value=hexVal;}catch{}}
+function applyBgColor(){
+  const c=gV('d-bg-color-hex')||'#F0F6FF';
+  S.site_bg_color=c;S.site_bg_image='';
+  document.body.style.background=c;
+}
+function clearBg(){S.site_bg_image='';S.site_bg_color='#F0F6FF';document.body.style.background='#F0F6FF';setV('d-bg-img-url','');document.getElementById('prev-site-bg').style.display='none';}
+async function saveDesign(){
+  const bgImg=gV('d-bg-img-url')||S.site_bg_image||'';
+  const bgCol=gV('d-bg-color-hex')||S.site_bg_color||'#F0F6FF';
+  S.site_bg_image=bgImg;S.site_bg_color=bgCol;
+  applySettings();lsSet('settings',S);
+  const r=await sb('site_settings','PATCH',{site_bg_color:bgCol,site_bg_image:bgImg,updated_at:new Date().toISOString()},'?id=eq.main');
+  toast(r?'✅ Desain disimpan!':'💾 Disimpan lokal!');
+}
+function toggleFontStyle(style){
+  if(style==='bold') bodyBold=!bodyBold;
+  if(style==='italic') bodyItalic=!bodyItalic;
+  if(style==='underline') bodyUnder=!bodyUnder;
+  document.getElementById('fb-'+style).classList.toggle('active');
+  previewFont();
+}
+function previewFont(){
+  const font=gV('d-font')||S.body_font;
+  const size=gV('d-font-size')||S.body_size||'16px';
+  const color=gV('d-txt-hex')||S.body_color||'#0B2545';
+  const box=document.getElementById('font-preview-box');
+  if(box){
+    box.style.fontFamily=font;box.style.fontSize=size;box.style.color=color;
+    box.style.fontWeight=bodyBold?'700':'400';
+    box.style.fontStyle=bodyItalic?'italic':'normal';
+    box.style.textDecoration=bodyUnder?'underline':'none';
+  }
+}
+async function saveTypography(){
+  S.body_font=gV('d-font');S.body_size=gV('d-font-size');
+  S.body_color=gV('d-txt-hex')||document.getElementById('d-txt-color').value;
+  S.body_bold=bodyBold;S.body_italic=bodyItalic;S.body_underline=bodyUnder;
+  applySettings();lsSet('settings',S);
+  const r=await sb('site_settings','PATCH',{body_font:S.body_font,body_size:S.body_size,body_color:S.body_color,body_bold:bodyBold,body_italic:bodyItalic,body_underline:bodyUnder,updated_at:new Date().toISOString()},'?id=eq.main');
+  toast(r?'✅ Tipografi disimpan!':'💾 Disimpan lokal!');
+}
+
+// ─────────────────────────────────────────────
+// SAVE FUNCTIONS
+// ─────────────────────────────────────────────
 async function saveSettings(){
-  const data={
-    navbar_logo:gV('s-logo'), footer_email:gV('s-email'), footer_phone:gV('s-phone'),
-    footer_text:gV('s-footer'), hero_image_url:gV('s-avatar-url'), updated_at:new Date().toISOString()
-  };
-  Object.assign(settings, data);
-  lsSet('settings', settings); // simpan ke localStorage dulu
-  applySettings();
-  // Coba sync ke Supabase
-  const r = await sb('site_settings','PATCH',data,'?id=eq.main');
-  toast(r !== null ? '✅ Pengaturan disimpan ke Supabase!' : '💾 Disimpan lokal (Supabase belum tersedia)');
-  renderPage(currentPage);
+  const data={navbar_logo:gV('s-logo'),footer_email:gV('s-email'),footer_phone:gV('s-phone'),footer_text:gV('s-footer'),hero_image_url:gV('s-avatar-url'),updated_at:new Date().toISOString()};
+  Object.assign(S,data);lsSet('settings',S);applySettings();
+  const r=await sb('site_settings','PATCH',data,'?id=eq.main');
+  toast(r?'✅ Disimpan!':'💾 Disimpan lokal!');renderPage(curPage);
 }
-
 async function saveHalamanMuka(){
   const content=[
-    {type:'hero',   title:gV('hm-title'), subtitle:gV('hm-sub')},
-    {type:'section',title:gV('hm-lptk-name'), text:gV('hm-lptk-desc'), map_url:gV('hm-lptk-map')},
-    {type:'section',title:gV('hm-ppl-name'),  text:gV('hm-ppl-desc'),  map_url:gV('hm-ppl-map')}
+    {type:'hero',title:gV('hm-title'),subtitle:gV('hm-sub')},
+    {type:'section',title:gV('hm-lptk-name'),text:gV('hm-lptk-desc'),map_url:gV('hm-lptk-map')},
+    {type:'section',title:gV('hm-ppl-name'),text:gV('hm-ppl-desc'),map_url:gV('hm-ppl-map')}
   ];
-  const settingsUpd = {hero_title:gV('hm-title'), hero_subtitle:gV('hm-sub'), hero_bg_url:gV('hm-bg-url')};
+  const upd={hero_title:gV('hm-title'),hero_subtitle:gV('hm-sub'),hero_bg_url:gV('hm-bg-url')||S.hero_bg_url||'',hero_height:gV('hm-height'),hero_align:gV('hm-align')};
   if(!pages['halaman-muka']) pages['halaman-muka']={slug:'halaman-muka',title:'Halaman Muka'};
-  pages['halaman-muka'].content = content;
-  Object.assign(settings, settingsUpd);
-  lsSet('pages', pages);
-  lsSet('settings', settings);
-  // Sync Supabase
-  const r1 = await sb('pages','PATCH',{content,updated_at:new Date().toISOString()},'?slug=eq.halaman-muka');
-  const r2 = await sb('site_settings','PATCH',{...settingsUpd,updated_at:new Date().toISOString()},'?id=eq.main');
-  toast((r1||r2) ? '✅ Halaman Muka disimpan!' : '💾 Disimpan lokal (Supabase belum tersedia)');
-  renderPage(currentPage);
+  pages['halaman-muka'].content=content;Object.assign(S,upd);
+  lsSet('pages',pages);lsSet('settings',S);
+  await sb('pages','PATCH',{content,updated_at:new Date().toISOString()},'?slug=eq.halaman-muka');
+  await sb('site_settings','PATCH',{...upd,updated_at:new Date().toISOString()},'?id=eq.main');
+  toast('✅ Header disimpan!');renderPage(curPage);
 }
-
 async function changePassword(){
-  const u=gV('ac-user'), p=gV('ac-pass'), c=gV('ac-conf');
-  if(!u||!p){ toast('⚠ Isi semua field!'); return; }
-  if(p!==c){ toast('⚠ Password tidak cocok!'); return; }
-  settings.admin_username=u; settings.admin_password=p;
-  lsSet('settings', settings);
-  const r = await sb('site_settings','PATCH',{admin_username:u,admin_password:p},'?id=eq.main');
-  toast(r ? '✅ Kredensial diubah!' : '💾 Disimpan lokal!');
+  const u=gV('ac-user'),p=gV('ac-pass'),c=gV('ac-conf');
+  if(!u||!p){toast('Isi semua field!');return;}
+  if(p!==c){toast('Password tidak cocok!');return;}
+  S.admin_username=u;S.admin_password=p;lsSet('settings',S);
+  const r=await sb('site_settings','PATCH',{admin_username:u,admin_password:p},'?id=eq.main');
+  toast(r?'✅ Kredensial diubah!':'💾 Disimpan lokal!');
 }
 
-// ═══════════════════════════════════════════════════════════
-// ITEM MODAL (Add/Edit Media)
-// ═══════════════════════════════════════════════════════════
-function openItemModal(slug, id=null){
-  _imSlug=slug; _imId=id;
-  document.getElementById('im-title').textContent = id?'Edit Konten':'Tambah Konten Baru';
-  document.getElementById('im-slug').value=slug;
-  document.getElementById('im-id').value=id||'';
-  // Reset
-  setV('im-item-title',''); setV('im-item-desc',''); document.getElementById('im-type').value='text';
-  setV('im-img-url',''); setV('im-embed-url',''); setV('im-thumb','');
+// ─────────────────────────────────────────────
+// ITEM MODAL
+// ─────────────────────────────────────────────
+function openItemModal(slug,id){
+  id=id||null;_imSlug=slug;_imId=id;
+  document.getElementById('im-title').textContent=id?'Edit Konten':'Tambah Konten Baru';
+  setV('im-item-title','');setV('im-item-desc','');document.getElementById('im-type').value='text';
+  setV('im-img-url','');setV('im-embed-url','');setV('im-thumb','');setV('im-vid-url','');
   document.getElementById('prev-im-img').style.display='none';
   document.getElementById('prev-im-vid').style.display='none';
-
   if(id){
     const item=(mediaItems[slug]||[]).find(i=>i.id===id);
     if(item){
-      setV('im-item-title',item.title); setV('im-item-desc',item.description||'');
+      setV('im-item-title',item.title);setV('im-item-desc',item.description||'');
       document.getElementById('im-type').value=item.media_type||'text';
       setV('im-thumb',item.thumbnail_url||'');
-      if(['image','video'].includes(item.media_type)) setV('im-img-url',item.media_url||'');
-      else setV('im-embed-url',item.media_url||'');
-      if(item.thumbnail_url) showPrev('prev-im-img',item.thumbnail_url);
+      if(['image','video'].includes(item.media_type)){
+        setV('im-img-url',item.media_url||'');
+        if(item.media_url||item.thumbnail_url) showPrev('prev-im-img',item.thumbnail_url||item.media_url||'');
+      } else {
+        setV('im-embed-url',item.media_url||'');
+      }
     }
   }
   onImTypeChange();
   document.getElementById('item-modal').classList.add('open');
 }
-
-function closeItemModal(){ document.getElementById('item-modal').classList.remove('open'); }
-
+function closeItemModal(){document.getElementById('item-modal').classList.remove('open');}
 function onImTypeChange(){
   const t=gV('im-type');
-  document.getElementById('im-img-wrap').style.display=['image','text'].includes(t)?'block':'none';
+  document.getElementById('im-img-wrap').style.display=t==='image'?'block':'none';
   document.getElementById('im-vid-wrap').style.display=t==='video'?'block':'none';
   document.getElementById('im-embed-wrap').style.display=['youtube','drive-doc','drive-sheet','slide','link'].includes(t)?'block':'none';
 }
-
 async function saveItem(){
-  const slug=_imSlug, id=_imId;
-  const type=gV('im-type');
-  const mediaUrl = ['image','video'].includes(type) ? gV('im-img-url') : gV('im-embed-url');
+  const slug=_imSlug,id=_imId,type=gV('im-type');
+  const mediaUrl=type==='video'?(gV('im-vid-url')||gV('im-img-url')):type==='image'?gV('im-img-url'):gV('im-embed-url');
   if(!mediaItems[slug]) mediaItems[slug]=[];
-
   if(id){
-    // Edit existing
-    const data = {
-      title:gV('im-item-title'), description:gV('im-item-desc'),
-      media_type:type, media_url:mediaUrl, thumbnail_url:gV('im-thumb'),
-      updated_at:new Date().toISOString()
-    };
-    const idx = mediaItems[slug].findIndex(i=>i.id===id);
-    if(idx>=0) mediaItems[slug][idx] = {...mediaItems[slug][idx], ...data};
-    lsSet('media', mediaItems);
-    // Sync Supabase
-    const r = await sb('media_items','PATCH',data,`?id=eq.${id}`);
-    toast(r ? '✅ Item diperbarui!' : '💾 Disimpan lokal!');
+    const data={title:gV('im-item-title'),description:gV('im-item-desc'),media_type:type,media_url:mediaUrl,thumbnail_url:gV('im-thumb'),updated_at:new Date().toISOString()};
+    const idx=mediaItems[slug].findIndex(i=>i.id===id);
+    if(idx>=0) mediaItems[slug][idx]={...mediaItems[slug][idx],...data};
+    lsSet('media',mediaItems);
+    await sb('media_items','PATCH',data,'?id=eq.'+id);
+    toast('✅ Item diperbarui!');
   } else {
-    // New item — buat ID lokal dulu
-    const newId = 'local_'+Date.now()+'_'+Math.random().toString(36).slice(2,7);
-    const data = {
-      page_slug:slug, title:gV('im-item-title'), description:gV('im-item-desc'),
-      media_type:type, media_url:mediaUrl, thumbnail_url:gV('im-thumb'),
-      is_visible:true, display_order:mediaItems[slug].length,
-      updated_at:new Date().toISOString()
-    };
-    // Coba POST ke Supabase
-    const r = await sb('media_items','POST',data);
-    const saved = (r && Array.isArray(r) && r[0]) ? r[0] : {...data, id:newId};
-    mediaItems[slug].push(saved);
-    lsSet('media', mediaItems);
-    toast(r ? '✅ Item ditambahkan ke Supabase!' : '💾 Disimpan lokal!');
+    const data={page_slug:slug,title:gV('im-item-title'),description:gV('im-item-desc'),media_type:type,media_url:mediaUrl,thumbnail_url:gV('im-thumb'),is_visible:true,display_order:mediaItems[slug].length};
+    const r=await sb('media_items','POST',data);
+    const saved=(r&&Array.isArray(r)&&r[0])?r[0]:{...data,id:'local_'+Date.now()};
+    mediaItems[slug].push(saved);lsSet('media',mediaItems);
+    toast(r?'✅ Ditambahkan!':'💾 Disimpan lokal!');
   }
-
-  closeItemModal();
-  renderPageContentAdmin(slug);
-  renderPage(currentPage);
+  closeItemModal();renderPageContentAdmin(slug);renderPage(curPage);
 }
-
-async function deleteItem(id, slug){
+async function delItem(id,slug){
   if(!confirm('Hapus item ini?')) return;
-  if(mediaItems[slug]) mediaItems[slug] = mediaItems[slug].filter(i=>i.id!==id);
-  lsSet('media', mediaItems);
-  // Coba delete dari Supabase (hanya kalau bukan ID lokal)
-  if(!id.startsWith('local_')) await sb('media_items','DELETE',null,`?id=eq.${id}`);
-  renderPageContentAdmin(slug);
-  renderPage(currentPage);
-  toast('🗑 Item dihapus.');
+  mediaItems[slug]=(mediaItems[slug]||[]).filter(i=>i.id!==id);lsSet('media',mediaItems);
+  if(!id.startsWith('local_')) await sb('media_items','DELETE',null,'?id=eq.'+id);
+  renderPageContentAdmin(slug);renderPage(curPage);toast('🗑 Dihapus.');
+}
+async function toggleVisible(id,slug){
+  const idx=(mediaItems[slug]||[]).findIndex(i=>i.id===id);if(idx<0) return;
+  const nv=mediaItems[slug][idx].is_visible===false?true:false;
+  mediaItems[slug][idx].is_visible=nv;lsSet('media',mediaItems);
+  if(!id.startsWith('local_')) await sb('media_items','PATCH',{is_visible:nv},'?id=eq.'+id);
+  renderPageContentAdmin(slug);renderPage(curPage);toast(nv?'👁 Ditampilkan':'🙈 Disembunyikan');
 }
 
-// ═══════════════════════════════════════════════════════════
-// FILE UPLOAD (base64 for direct use)
-// ═══════════════════════════════════════════════════════════
-function handleUpload(input, key){
-  const file=input.files[0]; if(!file) return;
+// ─────────────────────────────────────────────
+// MENU MANAGER
+// ─────────────────────────────────────────────
+function renderMenuAdmin(){
+  const menus=getMenus();
+  const parents=menus.filter(m=>!m.parent).sort((a,b)=>a.order-b.order);
+  let html='';
+  parents.forEach(p=>{
+    html+=`<div class="menu-node${!p.visible?' hidden-node':''}">
+      <div class="menu-node-info"><strong>${p.label}</strong><span>/${p.slug} • Menu Utama</span></div>
+      <div class="menu-node-btns">
+        <button class="btn-e btn-e-hide" onclick="toggleMenuVis('${p.slug}')">${p.visible?'🙈':'👁'}</button>
+        <button class="btn-e btn-e-edit" onclick="openMenuModal('edit','${p.slug}')">✏</button>
+        <button class="btn-e btn-e-del" onclick="delMenu('${p.slug}')">🗑</button>
+      </div>
+    </div>`;
+    menus.filter(m=>m.parent===p.slug).sort((a,b)=>a.order-b.order).forEach(c=>{
+      html+=`<div class="menu-node sub${!c.visible?' hidden-node':''}">
+        <div class="menu-node-info"><strong>└ ${c.label}</strong><span>/${c.slug} • Sub dari ${p.label}</span></div>
+        <div class="menu-node-btns">
+          <button class="btn-e btn-e-hide" onclick="toggleMenuVis('${c.slug}')">${c.visible?'🙈':'👁'}</button>
+          <button class="btn-e btn-e-edit" onclick="openMenuModal('edit','${c.slug}')">✏</button>
+          <button class="btn-e btn-e-del" onclick="delMenu('${c.slug}')">🗑</button>
+        </div>
+      </div>`;
+    });
+  });
+  document.getElementById('menu-tree-admin').innerHTML=html||'<div style="color:var(--txt-s)">Tidak ada menu.</div>';
+}
+function openMenuModal(mode,slug){
+  slug=slug||'';_mmMode=mode;_mmOrig=slug;
+  const menus=getMenus();
+  const item=slug?menus.find(m=>m.slug===slug):null;
+  document.getElementById('mm2-title').textContent=mode==='edit'?'Edit Menu':'Tambah Menu';
+  setV('mm2-label',item?.label||'');setV('mm2-slug',item?.slug||'');
+  const parents=menus.filter(m=>!m.parent);
+  document.getElementById('mm2-parent').innerHTML=`<option value="">— Menu Utama —</option>`+parents.map(p=>`<option value="${p.slug}"${item?.parent===p.slug?' selected':''}>${p.label}</option>`).join('');
+  document.getElementById('menu-modal').classList.add('open');
+}
+function closeMenuModal(){document.getElementById('menu-modal').classList.remove('open');}
+function saveMenu(){
+  const menus=getMenus();
+  const label=gV('mm2-label').trim();
+  let slug=gV('mm2-slug').trim().toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-\/]/g,'');
+  const parent=gV('mm2-parent')||null;
+  if(!label||!slug){toast('Isi label dan slug!');return;}
+  if(parent&&!slug.includes('/')) slug=parent+'/'+slug;
+  if(_mmMode==='edit'&&_mmOrig){
+    const idx=menus.findIndex(m=>m.slug===_mmOrig);
+    if(idx>=0){menus[idx].label=label;menus[idx].parent=parent;}
+  } else {
+    if(menus.find(m=>m.slug===slug)){toast('Slug sudah ada!');return;}
+    menus.push({slug,label,parent,visible:true,order:menus.filter(m=>m.parent===parent).length});
+  }
+  menuCfg=menus;lsSet('menus',menus);
+  closeMenuModal();renderNavbar();renderMenuAdmin();renderAdminPageNav();toast('✅ Menu disimpan!');
+}
+function toggleMenuVis(slug){
+  const menus=getMenus();const m=menus.find(x=>x.slug===slug);
+  if(m){m.visible=!m.visible;menuCfg=menus;lsSet('menus',menus);renderNavbar();renderMenuAdmin();renderAdminPageNav();}
+}
+function delMenu(slug){
+  if(!confirm('Hapus menu "'+slug+'"? Konten tetap tersimpan.')) return;
+  let menus=getMenus().filter(m=>m.slug!==slug&&m.parent!==slug);
+  menuCfg=menus;lsSet('menus',menus);renderNavbar();renderMenuAdmin();renderAdminPageNav();toast('🗑 Menu dihapus.');
+}
+
+// ─────────────────────────────────────────────
+// FILE UPLOAD
+// ─────────────────────────────────────────────
+function handleUpload(input,key){
+  const file=input.files[0];if(!file) return;
   const reader=new FileReader();
   reader.onload=e=>{
     const data=e.target.result;
-    if(key==='s-avatar'){ setV('s-avatar-url',data); showPrev('prev-s-avatar',data); settings.hero_image_url=data; }
-    else if(key==='hm-bg'){ setV('hm-bg-url',data); showPrev('prev-hm-bg',data); }
-    else if(key==='im-img'){ setV('im-img-url',data); showPrev('prev-im-img',data); }
+    if(key==='s-avatar'){setV('s-avatar-url',data);showPrev('prev-s-avatar',data);S.hero_image_url=data;}
+    else if(key==='hm-bg'){setV('hm-bg-url',data);showPrev('prev-hm-bg',data);S.hero_bg_url=data;}
+    else if(key==='site-bg'){setV('d-bg-img-url',data);showPrev('prev-site-bg',data);S.site_bg_image=data;document.body.style.background="url('"+data+"') center/cover fixed";}
+    else if(key==='im-img'){setV('im-img-url',data);showPrev('prev-im-img',data);}
+    lsSet('settings',S);
   };
   reader.readAsDataURL(file);
 }
-
 function handleVideoUpload(input){
-  const file=input.files[0]; if(!file) return;
+  const file=input.files[0];if(!file) return;
   const reader=new FileReader();
-  reader.onload=e=>{
-    const data=e.target.result; setV('im-img-url',data);
-    const vid=document.getElementById('prev-im-vid'); vid.src=data; vid.style.display='block';
-  };
+  reader.onload=e=>{const d=e.target.result;setV('im-vid-url',d);const v=document.getElementById('prev-im-vid');v.src=d;v.style.display='block';};
   reader.readAsDataURL(file);
 }
 
-// ═══════════════════════════════════════════════════════════
+// ─────────────────────────────────────────────
 // HELPERS
-// ═══════════════════════════════════════════════════════════
-function setV(id,v){ const e=document.getElementById(id); if(e) e.value=v||''; }
-function gV(id){ const e=document.getElementById(id); return e?e.value:''; }
-function showPrev(id,src){ const e=document.getElementById(id); if(e){e.src=src;e.style.display='block';} }
-function toast(msg){ const t=document.getElementById('adm-toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2800); }
-function toggleMobile(){ document.getElementById('mobile-nav').classList.toggle('open'); }
+// ─────────────────────────────────────────────
+function setV(id,v){const e=document.getElementById(id);if(e)e.value=v||'';}
+function gV(id){const e=document.getElementById(id);return e?e.value:'';}
+function showPrev(id,src){const e=document.getElementById(id);if(e){e.src=src;e.style.display='block';}}
+function toast(msg){const t=document.getElementById('adm-toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200);}
+function toggleMobile(){document.getElementById('mobile-nav').classList.toggle('open');}
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>30));
 
-// ── DROPDOWN: robust mouseenter/mouseleave with delay timer ──
-(function initDropdowns(){
-  document.querySelectorAll('.nav-item').forEach(item => {
-    if(!item.querySelector('.nav-dropdown')) return; // skip items without dropdown
-    let closeTimer = null;
-
-    function openDd(){
-      clearTimeout(closeTimer);
-      // Close any other open dropdowns first
-      document.querySelectorAll('.nav-item.dd-open').forEach(other => {
-        if(other !== item) other.classList.remove('dd-open');
-      });
-      item.classList.add('dd-open');
-    }
-    function closeDd(){
-      closeTimer = setTimeout(() => item.classList.remove('dd-open'), 120);
-    }
-
-    item.addEventListener('mouseenter', openDd);
-    item.addEventListener('mouseleave', closeDd);
-  });
-
-  // Click anywhere outside closes all dropdowns
-  document.addEventListener('click', e => {
-    if(!e.target.closest('.nav-item'))
-      document.querySelectorAll('.nav-item.dd-open').forEach(i=>i.classList.remove('dd-open'));
-  });
-})();
-
-// Navbar scroll
-window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>30);
-});
-
-// Route on load
-window.addEventListener('DOMContentLoaded',()=>{
-  const hash = location.hash.replace('#','');
-  if(hash) currentPage = hash;
-  init();
-});
+// BOOT
+window.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
 </html>
