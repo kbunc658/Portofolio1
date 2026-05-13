@@ -577,6 +577,34 @@ async function sb(table,method,body,query){
 function lsGet(k){try{return JSON.parse(localStorage.getItem(LS+'_'+k));}catch{return null;}}
 function lsSet(k,v){try{localStorage.setItem(LS+'_'+k,JSON.stringify(v));}catch{}}
 
+// Simpan settings — coba kolom individual, fallback ke extra_settings JSONB
+async function sbSaveSettings(data){
+  const payload={...data,updated_at:new Date().toISOString()};
+  const r=await sb('site_settings','PATCH',payload,'?id=eq.main');
+  if(r) return true;
+  // Fallback: semua ke extra_settings (JSONB kolom yang pasti ada)
+  const cur=lsGet('settings')||{};
+  const merged={...cur,...data};
+  const r2=await sb('site_settings','PATCH',{extra_settings:merged,updated_at:new Date().toISOString()},'?id=eq.main');
+  return !!r2;
+}
+
+// Merge row Supabase ke state S — baca dari kolom individual DAN extra_settings
+function mergeRow(row){
+  if(!row) return;
+  const extra=row.extra_settings||{};
+  // extra_settings punya nilai jika kolom individual tidak ada
+  const combined={...extra};
+  // Override dengan kolom individual jika ada nilainya
+  const skip=['id','created_at','updated_at','extra_settings'];
+  Object.entries(row).forEach(([k,v])=>{if(!skip.includes(k)&&v!==null&&v!==undefined&&v!=='')combined[k]=v;});
+  // Merge ke S — jangan override credentials
+  const noOver=['admin_username','admin_password'];
+  Object.entries(combined).forEach(([k,v])=>{if(!noOver.includes(k))S[k]=v;});
+  if(row.admin_username) S.admin_username=row.admin_username;
+  if(row.admin_password) S.admin_password=row.admin_password;
+}
+
 // ─────────────────────────────────────────────
 // DEFAULT MENUS
 // ─────────────────────────────────────────────
@@ -629,12 +657,9 @@ function getMenus(){return menuCfg||DEF_MENUS;}
 async function init(){
   const s=await sb('site_settings','GET',null,'?id=eq.main&select=*');
   if(s&&s[0]){
-    const row=s[0];
-    if(row.admin_username) S.admin_username=row.admin_username;
-    if(row.admin_password) S.admin_password=row.admin_password;
-    const skip=['admin_username','admin_password','id','created_at','updated_at'];
-    Object.entries(row).forEach(([k,v])=>{if(!skip.includes(k)&&v!==null&&v!==undefined&&v!=='')S[k]=v;});
-    bodyBold=S.body_bold||false;bodyItalic=S.body_italic||false;bodyUnder=S.body_underline||false;
+    mergeRow(s[0]);
+    if(s[0].menu_config){menuCfg=s[0].menu_config;lsSet('menus',menuCfg);}
+    bodyBold=!!S.body_bold;bodyItalic=!!S.body_italic;bodyUnder=!!S.body_underline;
     lsSet('settings',S);
   }
   const ps=await sb('pages','GET',null,'?select=*&order=nav_order');
@@ -909,11 +934,14 @@ function renderAdminPageNav(){
   menus.forEach(m=>{
     if(m.slug==='halaman-muka') return;
     const id='adm-pg-'+m.slug.replace(/\//g,'---');
-    navHtml+=`<div class="adm-nav-item" onclick="showAdmSection('${id}',this)">${m.parent?'&nbsp;&nbsp;└ ':''} ${m.label}</div>`;
+    const prefix=m.parent?'&nbsp;&nbsp;└ ':'';
+    navHtml+=`<div class="adm-nav-item" onclick="showAdmSection('${id}',this)">${prefix}${m.label}</div>`;
     sectHtml+=`<div class="adm-section" id="${id}"><div class="adm-card"><h3>📋 ${m.label}</h3></div><div id="ctn-${m.slug.replace(/\//g,'---')}"></div></div>`;
   });
   document.getElementById('adm-page-nav').innerHTML=navHtml;
   document.getElementById('adm-page-sections').innerHTML=sectHtml;
+  // Render isi konten semua halaman sekaligus agar sidebar langsung bisa diklik
+  menus.forEach(m=>{if(m.slug!=='halaman-muka') renderPageContentAdmin(m.slug);});
 }
 
 function renderPageContentAdmin(slug){
@@ -992,8 +1020,8 @@ async function saveDesign(){
   const bgCol=gV('d-bg-color-hex')||S.site_bg_color||'#F0F6FF';
   S.site_bg_image=bgImg;S.site_bg_color=bgCol;
   applySettings();lsSet('settings',S);
-  const r=await sb('site_settings','PATCH',{site_bg_color:bgCol,site_bg_image:bgImg,updated_at:new Date().toISOString()},'?id=eq.main');
-  toast(r?'✅ Desain disimpan!':'💾 Disimpan lokal!');
+  const ok=await sbSaveSettings({site_bg_color:bgCol,site_bg_image:bgImg});
+  toast(ok?'✅ Desain disimpan ke Supabase!':'💾 Disimpan lokal (Supabase: cek kolom)');
 }
 function toggleFontStyle(style){
   if(style==='bold') bodyBold=!bodyBold;
@@ -1019,18 +1047,18 @@ async function saveTypography(){
   S.body_color=gV('d-txt-hex')||document.getElementById('d-txt-color').value;
   S.body_bold=bodyBold;S.body_italic=bodyItalic;S.body_underline=bodyUnder;
   applySettings();lsSet('settings',S);
-  const r=await sb('site_settings','PATCH',{body_font:S.body_font,body_size:S.body_size,body_color:S.body_color,body_bold:bodyBold,body_italic:bodyItalic,body_underline:bodyUnder,updated_at:new Date().toISOString()},'?id=eq.main');
-  toast(r?'✅ Tipografi disimpan!':'💾 Disimpan lokal!');
+  const ok=await sbSaveSettings({body_font:S.body_font,body_size:S.body_size,body_color:S.body_color,body_bold:bodyBold,body_italic:bodyItalic,body_underline:bodyUnder});
+  toast(ok?'✅ Tipografi disimpan!':'💾 Disimpan lokal!');
 }
 
 // ─────────────────────────────────────────────
 // SAVE FUNCTIONS
 // ─────────────────────────────────────────────
 async function saveSettings(){
-  const data={navbar_logo:gV('s-logo'),footer_email:gV('s-email'),footer_phone:gV('s-phone'),footer_text:gV('s-footer'),hero_image_url:gV('s-avatar-url'),updated_at:new Date().toISOString()};
+  const data={navbar_logo:gV('s-logo'),footer_email:gV('s-email'),footer_phone:gV('s-phone'),footer_text:gV('s-footer'),hero_image_url:gV('s-avatar-url')};
   Object.assign(S,data);lsSet('settings',S);applySettings();
-  const r=await sb('site_settings','PATCH',data,'?id=eq.main');
-  toast(r?'✅ Disimpan!':'💾 Disimpan lokal!');renderPage(curPage);
+  const ok=await sbSaveSettings(data);
+  toast(ok?'✅ Disimpan!':'💾 Disimpan lokal!');renderPage(curPage);
 }
 async function saveHalamanMuka(){
   const content=[
@@ -1038,13 +1066,17 @@ async function saveHalamanMuka(){
     {type:'section',title:gV('hm-lptk-name'),text:gV('hm-lptk-desc'),map_url:gV('hm-lptk-map')},
     {type:'section',title:gV('hm-ppl-name'),text:gV('hm-ppl-desc'),map_url:gV('hm-ppl-map')}
   ];
-  const upd={hero_title:gV('hm-title'),hero_subtitle:gV('hm-sub'),hero_bg_url:gV('hm-bg-url')||S.hero_bg_url||'',hero_height:gV('hm-height'),hero_align:gV('hm-align')};
+  const upd={
+    hero_title:gV('hm-title'),hero_subtitle:gV('hm-sub'),
+    hero_bg_url:gV('hm-bg-url')||S.hero_bg_url||'',
+    hero_height:gV('hm-height'),hero_align:gV('hm-align')
+  };
   if(!pages['halaman-muka']) pages['halaman-muka']={slug:'halaman-muka',title:'Halaman Muka'};
   pages['halaman-muka'].content=content;Object.assign(S,upd);
   lsSet('pages',pages);lsSet('settings',S);
   await sb('pages','PATCH',{content,updated_at:new Date().toISOString()},'?slug=eq.halaman-muka');
-  await sb('site_settings','PATCH',{...upd,updated_at:new Date().toISOString()},'?id=eq.main');
-  toast('✅ Header disimpan!');renderPage(curPage);
+  const ok=await sbSaveSettings(upd);
+  toast(ok?'✅ Header disimpan!':'💾 Disimpan lokal!');renderPage(curPage);
 }
 async function changePassword(){
   const u=gV('ac-user'),p=gV('ac-pass'),c=gV('ac-conf');
@@ -1175,19 +1207,32 @@ function saveMenu(){
     if(idx>=0){menus[idx].label=label;menus[idx].parent=parent;}
   } else {
     if(menus.find(m=>m.slug===slug)){toast('Slug sudah ada!');return;}
-    menus.push({slug,label,parent,visible:true,order:menus.filter(m=>m.parent===parent).length});
+    menus.push({slug,label,parent:parent||null,visible:true,order:menus.filter(m=>m.parent===(parent||null)).length});
   }
   menuCfg=menus;lsSet('menus',menus);
-  closeMenuModal();renderNavbar();renderMenuAdmin();renderAdminPageNav();toast('✅ Menu disimpan!');
+  // Simpan ke Supabase
+  sbSaveSettings({menu_config:menus});
+  closeMenuModal();
+  renderNavbar();
+  renderMenuAdmin();
+  // Re-render admin page nav dan sections agar submenu baru muncul di sidebar
+  renderAdminPageNav();
+  toast('✅ Menu disimpan!');
 }
 function toggleMenuVis(slug){
   const menus=getMenus();const m=menus.find(x=>x.slug===slug);
-  if(m){m.visible=!m.visible;menuCfg=menus;lsSet('menus',menus);renderNavbar();renderMenuAdmin();renderAdminPageNav();}
+  if(m){
+    m.visible=!m.visible;menuCfg=menus;lsSet('menus',menus);
+    sbSaveSettings({menu_config:menus});
+    renderNavbar();renderMenuAdmin();renderAdminPageNav();
+  }
 }
 function delMenu(slug){
   if(!confirm('Hapus menu "'+slug+'"? Konten tetap tersimpan.')) return;
   let menus=getMenus().filter(m=>m.slug!==slug&&m.parent!==slug);
-  menuCfg=menus;lsSet('menus',menus);renderNavbar();renderMenuAdmin();renderAdminPageNav();toast('🗑 Menu dihapus.');
+  menuCfg=menus;lsSet('menus',menus);
+  sbSaveSettings({menu_config:menus});
+  renderNavbar();renderMenuAdmin();renderAdminPageNav();toast('🗑 Menu dihapus.');
 }
 
 // ─────────────────────────────────────────────
